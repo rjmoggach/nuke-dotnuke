@@ -27,7 +27,8 @@ http://en.wikipedia.org/wiki/KISS_principle
 
 http://en.wikipedia.org/wiki/Don't_repeat_yourself
 
-## Motive
+
+## Purpose
 
 The ultimate motive here is to keep the original UI intact to provide
 a more fluid user experience instead of surprising changes to expected norms.
@@ -35,7 +36,12 @@ As I mentioned above, enhancements should not impact the expected operation of t
 without a user knowing and having the option to opt-in.
 
 
-## Target
+## Installation
+
+Easy if you know how.
+
+
+## Future Goal
 
 Ideally this will evolve into a framework that allows for users to customize their workflow
 with an interface that is immediately accessible and does not require code editing. All 'features'

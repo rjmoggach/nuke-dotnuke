@@ -15,21 +15,19 @@ __builtin__.DOTNUKE_PATH = DOTNUKE_PATH
 
 # MyNk personal workspace
 # ----------------------------------
-from mynk import MyNk
-
-# Initialize the mynk object
-mynk = MyNk()
+import mynk
 
 # Set the format defaults
-mynk.set_format_defaults(mynk.config['formats'])
+mynk.formats.add_formats_from_config()
 
 # Set the knob defaults from mynk config
-mynk.set_knob_defaults(mynk.config['knobs'])
+mynk.knobs.set_knob_defaults_from_config()
 
 # Load the python tools from the mynk config'd path
-mynk.load_python_tools(mynk.config['paths']['tools']['python'])
+#mynk.load_python_tools(mynk.config['paths']['tools']['python'])
 
-
+# Build the custom menu and toolbar
+#mynk.init_gui()
 
 
 
