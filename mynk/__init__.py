@@ -20,7 +20,7 @@ from exceptions import MyNkError, MyNkEnvError, MyNkKnobsError, \
 # logger relies on: constants
 import logging
 from logger import MyNkLogger
-LOG = MyNkLogger(level=logging.DEBUG).LOG
+LOG = MyNkLogger().LOG
 
 # constants relies on: exceptions, LOG, internal
 import constants

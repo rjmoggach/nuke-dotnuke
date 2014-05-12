@@ -17,6 +17,9 @@ __builtin__.DOTNUKE_PATH = DOTNUKE_PATH
 # ----------------------------------
 import mynk
 
+# Build the custom menu and toolbar
+mynk.gui.init_gui()
+
 # Set the format defaults
 mynk.formats.add_formats_from_config()
 
@@ -32,9 +35,6 @@ mynk.tools.add_tools_from_path_list()
 # Set the knob defaults from mynk config
 mynk.knobs.set_knob_defaults_from_config()
 
-
-# Build the custom menu and toolbar
-#mynk.init_gui()
 
 
 

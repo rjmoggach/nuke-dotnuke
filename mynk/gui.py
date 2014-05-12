@@ -23,6 +23,7 @@ from .internal import coerce_unicode
 class MyNkGui(object):
   def __init__(self):
     nuke.pluginAddPath(coerce_unicode(os.path.join(_c.MYNK_PATH, 'icons'), _c.MYNK_CHARSET), addToSysPath=False)
+    LOG.info(' [MyNk] initializing custom user menus etc.')
 
   def create_menu(self):
     nuke_menu = nuke.menu('Nuke')

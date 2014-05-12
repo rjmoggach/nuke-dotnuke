@@ -31,8 +31,11 @@ class MyNkTools(object):
   def __init__(self, path_list=[]):
     self.path_list = path_list
     self.python = self.Tools()
+    LOG.info(' [MyNk] initializing custom user tools')
   
   class Tools(object):
+    '''convenience container class for organizing
+    arbitrary python tools in a hierarchy'''
     def __init__(self, **kw):
       self.__dict__.update(kw)
 
@@ -59,7 +62,7 @@ class MyNkTools(object):
     path = os.path.expanduser(path)
     if os.path.isdir(path):
       path_msg = u'Loading tools from path: {0}'.format(path)
-      LOG.info(path_msg)
+      LOG.debug(path_msg)
       sys.path.append(path)
       search_re = re.compile(".*\.py$", re.IGNORECASE)
       files = os.listdir(path)

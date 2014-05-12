@@ -21,12 +21,16 @@ import sys
 import logging
 import types
 
+
+
 class MyNkLogger(object):
-  def __init__(self, level=logging.INFO):
+  def __init__(self):
+    self.level = logging.DEBUG \
+                 if os.environ.get("MYNK_DEVEL", False) in ['1', 'true', 'True'] \
+                 else logging.INFO
     exc_format = '%(asctime)s %(levelname)s: %(message)s'
     format = '%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s'
     date_format = '%Y-%m-%d %H:%M:%S'
-    self.level = level
     self.exc_formatter = logging.Formatter(exc_format, date_format)
     self.formatter = logging.Formatter(format, date_format)
     self.init_logger()

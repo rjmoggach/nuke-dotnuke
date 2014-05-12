@@ -16,6 +16,7 @@ from . import LOG
 from . import config
 from . import MyNkKnobsError
 
+LOG.info(' [MyNk] initializing custom user knob defaults')
 
 def add_knob_default(node, knob, default):
   '''Add a knob default for a given node'''
