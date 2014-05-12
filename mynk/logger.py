@@ -8,6 +8,13 @@
 # mynk is all unicode internally, if you pass in strings,
 # they will be explicitly coerced to unicode.
 #
+# logging levels for reference:
+# DEBUG	Detailed information, typically of interest only when diagnosing problems.
+# INFO	Confirmation that things are working as expected.
+# WARNING	An indication that something unexpected happened, or indicative of some problem in the near future
+# (e.g. 'disk space low'). The software is still working as expected.
+# ERROR	Due to a more serious problem, the software has not been able to perform some function.
+# CRITICAL A serious error, indicating that the program itself may be unable to continue running.
 
 import os
 import sys
@@ -15,15 +22,19 @@ import logging
 import types
 
 class MyNkLogger(object):
-  def __init__(self):
-    self.exc_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s','%Y-%m-%d %H:%M:%S')
-    self.formatter = logging.Formatter('%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s','%Y-%m-%d %H:%M:%S')
+  def __init__(self, level=logging.INFO):
+    exc_format = '%(asctime)s %(levelname)s: %(message)s'
+    format = '%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s'
+    date_format = '%Y-%m-%d %H:%M:%S'
+    self.level = level
+    self.exc_formatter = logging.Formatter(exc_format, date_format)
+    self.formatter = logging.Formatter(format, date_format)
     self.init_logger()
 
   def init_handler(self):
     self.stream_handler = logging.StreamHandler()
     self.stream_handler.setFormatter(self.formatter)
-    self.stream_handler.setLevel(logging.INFO)
+    self.stream_handler.setLevel(self.level)
     
   def init_logger(self):
     self.init_handler()
@@ -32,7 +43,7 @@ class MyNkLogger(object):
     sys.excepthook = self.exception_handler
     self.LOG.flush = types.MethodType(self.__flush_log, self.LOG)
     self.LOG.remove_stream_handler = types.MethodType(self.__remove_stream_handler, self.LOG)
-    self.LOG.setLevel(logging.INFO)
+    self.LOG.setLevel(self.level)
 
   def __flush_log(self, log):
     '''Flush a log'''

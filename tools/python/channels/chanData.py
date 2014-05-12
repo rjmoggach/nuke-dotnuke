@@ -1,6 +1,5 @@
 import re
 import nuke
-import listUtils
 
 KNOBS_TO_IGNORE = [
 	'display',
@@ -85,7 +84,8 @@ def getDataConversions(dataTypes):
 	print str(dataTypes)
 	p = nuke.Panel("Import Data Type:")
 	conversions = []
-	if not listUtils.intersect(ROTATE_CHANS, dataTypes) == []:
+	# check if lists INTERSECT
+	if not list(set(ROTATE_CHANS) & set(dataTypes)) == []:
 		conversions.append('rotation')
 		p.addEnumerationPulldown('rotation', 'degrees radians')
 	for knobType in CAMERA_KNOBS:

@@ -20,9 +20,6 @@ from . import LOG
 from .internal import coerce_unicode
 
 
-nuke.pluginAddPath(coerce_unicode(os.path.join(_c.MYNK_PATH, 'icons'), _c.MYNK_CHARSET), addToSysPath=False)
-
-
 class MyNkConfig(object):
   def __init__(self):
     user_cfg_file_path = self.init_cfg()

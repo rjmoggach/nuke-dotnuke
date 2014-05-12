@@ -20,11 +20,18 @@ import mynk
 # Set the format defaults
 mynk.formats.add_formats_from_config()
 
+# Load the python tools from the mynk config'd path
+# if you want to add paths, add them one line at a time as follows
+# the following example is the default so not necessary to add
+# as it will find it if no other paths have been added
+#
+# mynk.tools.add_path('~/.nuke/tools/python')
+#
+mynk.tools.add_tools_from_path_list()
+
 # Set the knob defaults from mynk config
 mynk.knobs.set_knob_defaults_from_config()
 
-# Load the python tools from the mynk config'd path
-#mynk.load_python_tools(mynk.config['paths']['tools']['python'])
 
 # Build the custom menu and toolbar
 #mynk.init_gui()
