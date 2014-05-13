@@ -1,12 +1,12 @@
 import nuke
 
 __menus__ = {
-  'Camera -> Card':  {
+  'Camera/Camera -> Card':  {
     'command': 'cameraToCard()',
     'hotkey': '',
     'icon': ''
   },
-  'Card -> Camera':  {
+  'Camera/Card -> Camera':  {
     'command': 'cardToCamera()'
     'hotkey': '',
     'icon': ''

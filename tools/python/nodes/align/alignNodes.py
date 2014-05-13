@@ -1,12 +1,12 @@
 import nuke
 
 __menus__ = {
-  'Align Nodes X':  {
+  'Nodes/Align/Align Nodes X':  {
     'command': 'alignNodes(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''
   },
-  'Align Nodes Y':  {
+  'Nodes/Align/Align Nodes Y':  {
     'command': 'alignNodes(nuke.selectedNodes(), "y")',
     'hotkey': '',
     'icon': ''
