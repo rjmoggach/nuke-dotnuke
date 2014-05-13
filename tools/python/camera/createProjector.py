@@ -1,38 +1,65 @@
 import nuke
-import nukescripts
 
-def createProjector(cameraNode):
-	if not cameraNode.Class() == "Camera2" or not cameraNode.Class() == "Camera":
-		nuke.message("Please select a camera")
-	else:
-		frame = nuke.getInput("Frame to project")
-		try:
-			int(frame)
-		except ValueError:
-			nuke.message("You must enter a frame number!")
-			return 0
+__menus__ = {
+  'Create Projector from Camera':  {
+    'command': 'createProjector(nuke.selectedNodes())',
+    'hotkey': '',
+    'icon': ''
+  }
+}
 
-		nukescripts.node_copypaste()
-		cameraNode = nuke.selectedNode()
-		cameraNode.addKnob(nuke.Int_Knob('referenceFrame', 'Reference Frame'))
-		cameraNode['referenceFrame'].setValue(int(frame))
-		cameraNode['label'].setValue("Projection at frame: [value referenceFrame]")
-		cameraNode['tile_color'].setValue(123863)
-		cameraNode['gl_color'].setValue(123863)
+def clipboard():
+	return "%clipboard%"
 
-		for knob in cameraNode.knobs().values():
-			if knob.hasExpression():
-				if knob.arraySize() ==1:
-					nuke.animation("%s.%s" % (cameraNode.name(), knob.name()), "generate", ("%s" % (nuke.root().firstFrame()), "%s" % (nuke.root().lastFrame()), "1", "y", "%s" % (knob.name())))
-				else:
-					i = knob.arraySize() -1
-					while i > -1:
-						nuke.animation("%s.%s.%s" % (cameraNode.name(), knob.name(), i), "generate", ("%s" % (nuke.root().firstFrame()), "%s" % (nuke.root().lastFrame()), "1", "y", "%s" % (knob.name())))
-						i = i-1
+def copy_paste():
+  nuke.nodeCopy(clipboard())
+  for node in nuke.allNodes():
+    node.knob("selected").setValue(False)
+  nuke.nodePaste(clipboard())
 
-
-		for knob in cameraNode.knobs().values():
-		   if knob.isAnimated():
-			   knob.setExpression('curve(referenceFrame)')
-
-
+def createProjector():
+  selectedNodes = nuke.selectedNodes()
+  for cameraNode in nuke.selectedNodes():
+  	if cameraNode.Class() in [ "Camera2", "Camera"]:
+  	  cameraNodeName = cameraNode.name()
+  		frame = nuke.getInput("Frame to Project for {0}?".format(cameraNode.name()))
+  		try:
+  			int(frame)
+  		except ValueError:
+  			nuke.message("You must enter a frame number!")
+  			return 0
+  		copy_paste()
+  		selectedCamera = nuke.selectedNode()
+  		selectedCamera.addKnob(nuke.Int_Knob('referenceFrame', 'Reference Frame'))
+  		selectedCamera['referenceFrame'].setValue(int(frame))
+  		selectedCamera['label'].setValue("Projection at frame: [value referenceFrame]")
+  		selectedCamera['tile_color'].setValue(123863)
+  		selectedCamera['gl_color'].setValue(123863)
+  
+  		for knob in selectedCamera.knobs().values():
+  			if knob.hasExpression():
+  				if knob.arraySize() ==1:
+  					nuke.animation( \
+  					  "{0}.{1}".format(selectedCamera.name(), knob.name()), \
+  					  "generate", \
+  					  ("{0}".format(nuke.root().firstFrame()), \
+  					  "{0}".format(nuke.root().lastFrame()), \
+  					  "1", "y", "{0}".format(knob.name()) \
+  					  ))
+  				else:
+  					i = knob.arraySize() -1
+  					while i > -1:
+  						nuke.animation( \
+  						  "{0}.{1}.{2}".format(selectedCamera.name(), knob.name(), i), \
+  						  "generate", \
+  						  ("{0}".format(nuke.root().firstFrame()), \
+  						  "{0}".format(nuke.root().lastFrame()), \
+  						  "1", "y", "{0}".format(knob.name()) \
+  						  ))
+  						i = i-1
+  
+  		for knob in selectedCamera.knobs().values():
+  		   if knob.isAnimated():
+  			   knob.setExpression('curve(referenceFrame)')
+  
+  

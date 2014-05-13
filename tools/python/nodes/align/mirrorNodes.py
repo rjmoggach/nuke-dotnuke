@@ -1,3 +1,18 @@
+import nuke
+
+__menus__ = {
+  'Mirror Nodes X':  {
+    'command': 'alignNodes(nuke.selectedNodes())',
+    'hotkey': '',
+    'icon': ''
+  },
+  'Mirror Nodes Y':  {
+    'command': 'alignNodes(nuke.selectedNodes(), "y")',
+    'hotkey': '',
+    'icon': ''
+  }
+}
+
 def mirrorNodes( nodes, direction = 'x' ):
 	'''
 	Mirror nodes either horizontally or vertically.

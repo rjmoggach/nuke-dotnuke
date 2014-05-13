@@ -2,6 +2,7 @@
 
 This is my personal startup environment for nuke.
 
+# THIS IS A WORK IN PROGRESS - NOT FOR PRODUCTION USE!!!!
 
 ## Usage
 

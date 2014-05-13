@@ -1,3 +1,19 @@
+import nuke
+
+__menus__ = {
+  'Align Nodes X':  {
+    'command': 'alignNodes(nuke.selectedNodes())',
+    'hotkey': '',
+    'icon': ''
+  },
+  'Align Nodes Y':  {
+    'command': 'alignNodes(nuke.selectedNodes(), "y")',
+    'hotkey': '',
+    'icon': ''
+  }
+}
+
+
 def alignNodes( nodes, direction = 'x' ):
 	'''
 	Align nodes either horizontally or vertically.

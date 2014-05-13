@@ -1,5 +1,13 @@
 import nuke
 
+__menus__ = {
+  'Append Clips':  {
+    'command': 'appendClips()',
+    'hotkey': '',
+    'icon': ''
+  }
+}
+
 def appendClips():
 	sw = nuke.nodes.AppendClip()
 	an = [n for n in nuke.allNodes() if n.Class() == "Read"] 

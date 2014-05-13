@@ -1,5 +1,14 @@
 import nuke
 
+__menus__ = {
+  'Shuffle to Layers': {
+    'command': 'shuffleToLayers(nuke.selectedNodes())',
+    'hotkey': '',
+    'icon': ''
+  }
+}
+
+
 def shuffleToLayers(nodes):
 	'''
 	Shuffles a multi-layer EXR to multiple shuffle nodes

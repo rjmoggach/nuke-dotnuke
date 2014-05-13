@@ -17,11 +17,14 @@ __builtin__.DOTNUKE_PATH = DOTNUKE_PATH
 # ----------------------------------
 import mynk
 
-# Build the custom menu and toolbar
+# Initialize the custom menu and toolbar
 mynk.gui.init_gui()
 
 # Set the format defaults
 mynk.formats.add_formats_from_config()
+
+# Set the knob defaults from mynk config
+mynk.knobs.set_knob_defaults_from_config()
 
 # Load the python tools from the mynk config'd path
 # if you want to add paths, add them one line at a time as follows
@@ -30,17 +33,9 @@ mynk.formats.add_formats_from_config()
 #
 # mynk.tools.add_path('~/.nuke/tools/python')
 #
-mynk.tools.add_tools_from_path_list()
+mynk.tools.add_python_tools_from_path_list()
 
-# Set the knob defaults from mynk config
-mynk.knobs.set_knob_defaults_from_config()
-
-
-
-
-
-mynk.gui.init_gui()
-
+mynk.tools.add_tools_to_menu([mynk.gui.menu, mynk.gui.nuke_toolbar])
 
 #nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 #nuke_tb = nuke.menu("Nodes")

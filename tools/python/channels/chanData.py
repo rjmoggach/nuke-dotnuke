@@ -1,6 +1,9 @@
 import re
 import nuke
 
+__menus__ = {}
+
+
 KNOBS_TO_IGNORE = [
 	'display',
 	'selectable',

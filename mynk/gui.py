@@ -71,7 +71,7 @@ class MyNkGui(object):
     nuke.restoreWindowLayout(layout)
 
   def create_menus_from_bunch(self, bunch, prefix=None):
-    for key, val in bunch.iteritems():
+    for key, val in bunch.toDict().iteritems():
       title = re.sub("([a-z])([A-Z])","\g<1> \g<2>", key).title()
       if not prefix:
         if not isinstance(val, dict):
