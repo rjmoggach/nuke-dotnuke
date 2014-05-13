@@ -29,3 +29,9 @@ def filenameFix(filename):
   else:
     filename = filename.replace( "P:", "/psyop/pfs" )
   return filename
+
+
+import nuke
+nuke_toolbar = nuke.menu("Nodes")
+foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
+foot.addCommand('-','','')

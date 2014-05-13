@@ -39,3 +39,14 @@ mynk.knobs.set_knob_defaults_from_config()
 
 
 
+mynk.gui.init_gui()
+
+
+#nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+#nuke_tb = nuke.menu("Nodes")
+#mynk_mnu = nuke_tb.addMenu("FOOOBAR", "mynk.png")
+#mynk_mnu.addCommand("Read", "nukescripts.create_read()", "r", icon="Read.png")
+#mynk_mnu.addCommand("Write", "nuke.createNode(\"Write\")", "w", icon="Write.png")
+
+
+#nuke.pluginAddPath('/Users/rob/.nuke/mygui', addToSysPath=False)

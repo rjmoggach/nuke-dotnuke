@@ -10,6 +10,9 @@
 # they will be explicitly coerced to unicode.
 #
 
+
+# THIS DOESN'T REALLY DO ANYTHING RIGHT NOW - POSSIBLE FUTURE EXCEPTION HANDLING
+
 class MyNkError(OSError):
   '''root for MyNkErrors, only used to except any MyNk error, never raised'''
   pass

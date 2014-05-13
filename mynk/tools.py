@@ -23,22 +23,45 @@ from . import constants as _c
 from . import LOG
 from .internal import coerce_unicode
 
+# checkout https://github.com/dsc/bunch
+from .bunch import Bunch
 
 MYNK_TOOLS_PATH = coerce_unicode(os.path.join(_c.DOTNUKE_PATH, 'tools', 'python'), _c.MYNK_CHARSET)
 
 
+class ToolMeta(type):
+  def __init__(cls, name, bases, dct):
+    if not hasattr(cls, 'registry'):
+      # base class - create empty registry
+      cls.registry = {}
+    else:
+      # derived class - add cls to registry
+      tool_id = name.lower()
+      cls.registry[tool_id] = cls
+    super(ToolMeta, cls).__init__(name, bases, dct)
+
+class Tool(object):
+  __metaclass__ = ToolMeta
+
+
+class Container(object):
+  def __getattr__(self, name):
+    self.__dict__[name] = Container()
+    return self.__dict__[name]
+
+  def __repr__(self):
+    return_dict = {}
+    for key,val in self.__dict__.items():
+      return_dict[key] = val
+    return repr(return_dict)
+      
+
 class MyNkTools(object):
   def __init__(self, path_list=[]):
     self.path_list = path_list
-    self.python = self.Tools()
+    self.python = Bunch()
     LOG.info(' [MyNk] initializing custom user tools')
   
-  class Tools(object):
-    '''convenience container class for organizing
-    arbitrary python tools in a hierarchy'''
-    def __init__(self, **kw):
-      self.__dict__.update(kw)
-
   def add_default_path(self):
     if not self.path_list:
       self.path_list.append(MYNK_TOOLS_PATH)
@@ -56,9 +79,12 @@ class MyNkTools(object):
       self.add_default_path()
       self.add_tools_from_path_list()
 
-  def add_tools_from_path(self, path, prefix=None):
-    if not prefix:
-      prefix = 'self.python'
+  def add_tools_from_path(self, path, prefix='self.python'):
+#    if not prefix[:5] == 'self.':
+#      prefix = 'self.{prefix}'.format(prefix=prefix)
+#    prefix_exec = '{0} = Bunch()'.format(prefix)
+#    LOG.info(prefix_exec)
+#    exec(prefix)
     path = os.path.expanduser(path)
     if os.path.isdir(path):
       path_msg = u'Loading tools from path: {0}'.format(path)
@@ -85,8 +111,8 @@ class MyNkTools(object):
             if os.path.exists(path_check):
               package_name = os.path.splitext(file_name)[0]
               try:
-                module = __import__(package_name)
-                setattr(eval(prefix), package_name, module)
+                package = __import__(package_name)
+                setattr(eval(prefix), package_name, package)
                 debug_msg = u'Loaded Package [{0}] from path: {1}'.format(package_name, file_path)
                 LOG.debug(debug_msg)
               except Exception, detail:
@@ -95,11 +121,9 @@ class MyNkTools(object):
             else:
               suffix = os.path.splitext(file_name)[0]
               new_prefix = '.'.join([prefix, suffix])
-              eval_sub_str= u'setattr({0},"{1}",self.Tools())'.format(prefix, suffix)
-              eval(eval_sub_str)
+              setattr(eval(prefix), suffix, Bunch())
               new_path = os.path.join(path, suffix)
               self.add_tools_from_path(new_path, prefix=new_prefix)
-
 
   def list_plugins(self):
     '''

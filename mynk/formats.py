@@ -20,6 +20,7 @@ from .internal import coerce_unicode
 
 LOG.info(' [MyNk] initializing custom user image formats')
 
+
 def add_format(W, H, x, y, r, t, pa, format_name):
   '''Add a format based on provided attributes'''
   if not W is None and not H is None and not format_name is None:

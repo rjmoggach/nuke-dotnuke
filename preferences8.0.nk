@@ -1,0 +1,10 @@
+Preferences {
+ inputs 0
+ name Preferences
+ selectedGPUDeviceName "no GPU available"
+ platformPathRemaps ""
+ LabelFont Helvetica
+ ScriptEditorFont Menlo
+ clearOnSuccess false
+ echoAllCommands true
+}

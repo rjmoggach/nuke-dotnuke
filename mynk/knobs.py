@@ -18,6 +18,7 @@ from . import MyNkKnobsError
 
 LOG.info(' [MyNk] initializing custom user knob defaults')
 
+
 def add_knob_default(node, knob, default):
   '''Add a knob default for a given node'''
   nuke.knobDefault(u'{0}.{1}'.format(node, knob) , '{0}'.format(default))
