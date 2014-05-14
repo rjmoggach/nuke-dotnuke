@@ -53,14 +53,14 @@ class MyNkTools(object):
       self.add_default_path()
       self.add_python_tools_from_path_list()
 
-  def add_python_tools_from_path(self, path, prefix_list=[]):
+  def add_python_tools_from_path(self, path, dest=None):
     '''Recursively add python modules and packages at path
        to dotted python path at prefix'''
     # expand any tilde home directory shortcuts
     path = os.path.expanduser(path)
     # if no prefix list defined use the default internal python bunch
-    if not prefix_list:
-      prefix_list = ['self','python']
+    if dest is None:
+      dest = self.python
     # we want a filesystem path so check for that first
     if os.path.isdir(path):
       LOG.debug(u'Loading tools from path: {0}'.format(path))
@@ -78,13 +78,10 @@ class MyNkTools(object):
             module_name = os.path.splitext( file_name )[0]
             try:
               module = imp.load_source(module_name, file_path)
-              setattr(eval('.'.join(prefix_list)), module_name, module)
-              debug_msg = u'Loaded Module [{0}] from path: {1}'.format(module_name, file_path)
-              self.tools_dict
-              LOG.debug(debug_msg)
+              setattr(dest, module_name, module)
+              LOG.debug(u'Loaded Module [{0}]: {1}'.format(module_name, file_path))
             except Exception, detail:
-              error_msg = u'Module [{0}] could not be loaded from path: {1}\n{2}'.format(module_name, file_path, detail)
-              LOG.warning(error_msg)
+              LOG.warning(u'Module [{0}] could not be loaded: {1}\n{2}'.format(module_name, file_path, detail))
           # if file is directory (org or package)
           elif os.path.isdir(file_path):
             path_check = os.path.join(file_path, "__init__.py" )
@@ -92,20 +89,15 @@ class MyNkTools(object):
               package_name = os.path.splitext(file_name)[0]
               try:
                 package = __import__(package_name)
-                setattr(eval('.'.join(prefix_list)), package_name, package)
-                debug_msg = u'Loaded Package [{0}] from path: {1}'.format(package_name, file_path)
-                LOG.debug(debug_msg)
+                setattr(dest, package_name, package)
+                LOG.debug(debug_msg = u'Loaded Package [{0}]: {1}'.format(package_name, file_path))
               except Exception, detail:
-                error_msg = u'Package [{0}] could not be loaded from path: {1}\n{2}'.format(package_name, file_path, detail)
-                LOG.warning(error_msg)
+                LOG.warning(u'Package [{0}] could not be loaded from path: {1}\n{2}'.format(package_name, file_path, detail))
             else:
               dir_name = os.path.splitext(file_name)[0]
-              self.tools_dict[dir_name] = {}
-              setattr(eval('.'.join(prefix_list)), dir_name, Bunch())
-              prefix_list.append(dir_name)
-              new_prefix = '.'.join(prefix_list)
-              new_path = os.path.join(path, suffix)
-              self.add_python_tools_from_path(new_path, prefix_list=prefix_list)
+              setattr(dest, dir_name, Bunch())
+              new_path = os.path.join(path, dir_name)
+              self.add_python_tools_from_path(new_path, eval('dest.{0}'.format(dir_name)))
 
   def add_tools_to_menu(self, menu=[], submenu=None):
     pass

@@ -29,7 +29,7 @@ class MyNkGui(object):
     nuke_menu = nuke.menu('Nuke')
     self.menu = nuke_menu.addMenu('MyNk', icon='mynk.png')
     nuke_toolbar = nuke.menu("Nodes")
-    self.toolbar = nuke_toolbar.addMenu("MyNk", "mynk.png")
+    self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", "mynk.png")
     self.menu_dict = {}
 
   def create_menu(self):
@@ -37,14 +37,12 @@ class MyNkGui(object):
     LOG.info(' [MyNk] created MyNk menu heading')
   
   def create_toolbar_menu(self):
-    self.toolbar.addCommand("Read", "nukescripts.create_read()", "", icon="Read.png")
+    self.nuke_toolbar.addCommand("Read", "nukescripts.create_read()", "", icon="Read.png")
     LOG.info(' [MyNk] created MyNk toolbar entry')
-#    self.toolbar_menu = self.toolbar.addMenu('MyNk', icon="mynk.png")
 
   def init_gui(self):
     self.create_menu()
     self.create_toolbar_menu()
-#    self.menu.addCommand("Restore Clean Layout", "nuke.restoreWindowLayout(7)", "F5", icon="desktop_alt_2.png")
 
   def add_entry_to_toolbar(self, entry):
     pass
