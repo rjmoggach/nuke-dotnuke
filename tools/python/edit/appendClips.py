@@ -1,8 +1,8 @@
 import nuke
 
 __menus__ = {
-  'Edit/Append Clips':  {
-    'command': 'appendClips()',
+  'Tools/Edit/Append Clips':  {
+    'cmd': 'appendClips()',
     'hotkey': '',
     'icon': ''
   }

@@ -1,8 +1,8 @@
 import nuke
 
 __menus__ = {
-  'Camera/Create Projector from Camera':  {
-    'command': 'createProjector(nuke.selectedNodes())',
+  'Tools/Camera/Create Projector from Camera':  {
+    'cmd': 'createProjector(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''
   }

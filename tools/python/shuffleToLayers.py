@@ -1,8 +1,8 @@
 import nuke
 
 __menus__ = {
-  'Layers/Shuffle Layers': {
-    'command': 'shuffleToLayers(nuke.selectedNodes())',
+  'Tools/Layers/Shuffle Layers': {
+    'cmd': 'shuffleToLayers(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''
   }

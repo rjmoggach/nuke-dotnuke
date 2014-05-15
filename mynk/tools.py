@@ -16,6 +16,7 @@ import sys
 import types
 import imp
 import re
+import inspect
 
 import nuke
 
@@ -30,10 +31,16 @@ MYNK_TOOLS_PATH = coerce_unicode(os.path.join(_c.DOTNUKE_PATH, 'tools', 'python'
 
 
 class MyNkTools(object):
+
+  @property
+  def __name__(self):
+    return 'mynk.tools'
+
   def __init__(self, path_list=[]):
     self.path_list = path_list
     self.tools_dict = {}
     self.python=Bunch()
+    self.prefix = inspect.getmodule(self).__name__
     LOG.info(' [MyNk] initializing custom user tools')
   
   def add_default_path(self):
@@ -98,9 +105,6 @@ class MyNkTools(object):
               setattr(dest, dir_name, Bunch())
               new_path = os.path.join(path, dir_name)
               self.add_python_tools_from_path(new_path, eval('dest.{0}'.format(dir_name)))
-
-  def add_tools_to_menu(self, menu=[], submenu=None):
-    pass
   
   def list_plugins(self):
     '''

@@ -1,8 +1,8 @@
 import nuke
 
 __menus__ = {
-  'Nodes/Create Dots': {
-    'command': 'createDots(nuke.selectedNodes())',
+  'Tools/Nodes/Create Dots': {
+    'cmd': 'createDots(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''
   }

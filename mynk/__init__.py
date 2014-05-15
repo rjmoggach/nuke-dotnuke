@@ -10,13 +10,6 @@
 #
 
 
-# ORDER MATTERS HERE -- SOME MODULES ARE DEPENDANT ON OTHERS
-from exceptions import MyNkError, MyNkEnvError, MyNkKnobsError, \
-                       MyNkConfigError, MyNkConfigMalformedError, \
-                       MyNkCoerceError, MyNkConfigDoesNotExistError, \
-                       MyNkConfigUnreadableError, \
-                       MyNkFormatsError, MyNkMalformedFormatError
-
 # logger relies on: constants
 import logging
 from logger import MyNkLogger
@@ -47,7 +40,6 @@ tools = MyNkTools()
 import knobs
 
 
-__all__ = [ 'MyNkError', 'MyNkEnvError', 'MyNkKnobsError', 'MyNkConfigError', 'MyNkCoerceError',
-            'MyNkConfigMalformedError', 'MyNkConfigDoesNotExistError', 'MyNkConfigUnreadableError',
-            'MyNkFormatsError', 'MyNkMalformedFormatError',
-            'constants', 'const', 'set_const', 'LOG', 'config', 'formats', 'tools', 'knobs', ]
+__all__ = [ 'constants', 'const', 'set_const', 'LOG', 'config', 'gui', 'formats', 'tools', 'knobs', ]
+
+__name__ = 'mynk'

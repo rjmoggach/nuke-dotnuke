@@ -35,7 +35,7 @@ mynk.knobs.set_knob_defaults_from_config()
 #
 mynk.tools.add_python_tools_from_path_list()
 
-mynk.tools.add_tools_to_menu([mynk.gui.menu, mynk.gui.nuke_toolbar])
+mynk.gui.add_toolbunch_to_menu('mynk.tools.python')
 
 #nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 #nuke_tb = nuke.menu("Nodes")

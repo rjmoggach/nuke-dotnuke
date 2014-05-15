@@ -8,11 +8,19 @@
 # mynk is all unicode internally, if you pass in strings,
 # they will be explicitly coerced to unicode.
 #
+# SHORT CUT SYNTAX
+# 'Ctrl-s'    "^s"
+# 'Ctrl-Shift-s'  "^+s"
+# 'Alt-Shift-s'   "#+s"
+# 'Shift+F4'    "+F4"
+#
+# convert camel case to titles re.sub("([a-z])([A-Z])","\g<1> \g<2>", key).title()
 
 import re
 import os
 import shutil
 from types import ModuleType
+import inspect
 
 import nuke
 
@@ -21,28 +29,41 @@ from . import LOG
 from . import config
 from .internal import coerce_unicode
 
+import mynk
 
 class MyNkGui(object):
   def __init__(self):
     nuke.pluginAddPath(coerce_unicode(os.path.join(_c.MYNK_PATH, 'icons'), _c.MYNK_CHARSET), addToSysPath=False)
     LOG.info(' [MyNk] initializing custom user menus etc.')
+
+  def add_tool_menus(self, tool_str):
+    try:
+      tool = eval(tool_str)
+      menus = getattr(tool, '__menus__' ,None)
+    except AttributeError:
+      LOG.warning(' [MyNk] tool has no __menus__ attribute: {0}'.format(tool_str))
+    else:
+      for key,val in menus.iteritems():
+        title = key
+        cmd = '{0}.{1}'.format(tool_str, val['cmd'])
+        hotkey = val['hotkey']
+        icon = val['icon']
+        for menu in [self.menu,self.nuke_toolbar]:
+          menu.addCommand(title,cmd,hotkey,icon)
+            
+  def add_toolbunch_to_menu(self, toolbunch_str):
+    for key,val in eval(toolbunch_str).toDict().iteritems():
+      dottedpath = '{0}.{1}'.format(toolbunch_str,key)
+      if inspect.ismodule(val):
+        self.add_tool_menus(dottedpath)
+      else:
+        self.add_toolbunch_to_menu(dottedpath)
+
+  def init_gui(self):
     nuke_menu = nuke.menu('Nuke')
     self.menu = nuke_menu.addMenu('MyNk', icon='mynk.png')
     nuke_toolbar = nuke.menu("Nodes")
     self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", "mynk.png")
-    self.menu_dict = {}
-
-  def create_menu(self):
-    self.menu.addCommand("Restore Clean Layout", "nuke.restoreWindowLayout(7)", "F5", icon="desktop_alt_2.png")
-    LOG.info(' [MyNk] created MyNk menu heading')
-  
-  def create_toolbar_menu(self):
-    self.nuke_toolbar.addCommand("Read", "nukescripts.create_read()", "", icon="Read.png")
-    LOG.info(' [MyNk] created MyNk toolbar entry')
-
-  def init_gui(self):
-    self.create_menu()
-    self.create_toolbar_menu()
 
   def add_entry_to_toolbar(self, entry):
     pass
@@ -55,11 +76,6 @@ class MyNkGui(object):
      pass
  
   def setFavorites(self):
-    # SHORT CUT SYNTAX
-    # 'Ctrl-s'    "^s"
-    # 'Ctrl-Shift-s'  "^+s"
-    # 'Alt-Shift-s'   "#+s"
-    # 'Shift+F4'    "+F4"
     nuke.removeFavoriteDir('Nuke')
     nuke.addFavoriteDir('DotNuke', os.path.expanduser('~/.nuke'), 0)
     nuke.addFavoriteDir('Jobs', '/', 0)
@@ -68,21 +84,3 @@ class MyNkGui(object):
   def restoreWindowLayout(self, layout=1):
     nuke.restoreWindowLayout(layout)
 
-  def create_menus_from_bunch(self, bunch, prefix=None):
-    for key, val in bunch.toDict().iteritems():
-      title = re.sub("([a-z])([A-Z])","\g<1> \g<2>", key).title()
-      if not prefix:
-        if not isinstance(val, dict):
-          self.menu.addCommand(title, "nukescripts.create_read()", '', '')
-        else:
-          sub_bunch_str = '{0}.{1}'.format(bunch_str, key)
-          self.create_menus_from_bunch(self, sub_bunch_str, prefix=title)
-      else:
-        sub_title = '{0}/{1}'.format(prefix, title)
-        if not isinstance(val, dict):
-          self.menu.addCommand(sub_title, "nukescripts.create_read()", '', '')
-        else:
-          sub_bunch_str = '{0}.{1}'.format(bunch_str, key)
-          self.create_menus_from_bunch(self, sub_bunch_str, prefix=title)
-          
-      
