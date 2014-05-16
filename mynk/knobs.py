@@ -17,9 +17,9 @@ LOG.info(' [MyNk] initializing custom user knob defaults')
 
 def add_knob_default(node, knob, default):
   '''Add a knob default for a given node'''
-  nuke.knobDefault(u'{0}.{1}'.format(node, knob) , '{0}'.format(default))
-  msg = u'Added knob default: {0}.{1} = {2}'.format(node, knob, default)
-  LOG.debug(msg)
+  knob_default={ 'node': node, 'knob': knob, 'default': default }
+  nuke.knobDefault(u'{node}.{knob}'.format(**knob_default) , '{default}'.format(**knob_default))
+  LOG.debug(u'Added knob default: {node}.{knob} = {default}'.format(**knob_default))
 
 
 def add_knob_defaults_from_dict(defaults_dict):
