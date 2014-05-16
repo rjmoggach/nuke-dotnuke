@@ -11,7 +11,7 @@ import shutil
 
 import nuke
 
-from .configobj import ConfigObj
+from configobj import ConfigObj
 from . import constants as _c
 from . import LOG
 
