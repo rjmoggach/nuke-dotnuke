@@ -14,7 +14,7 @@ def createDots(nodes):
   '''
   Creates more organized trees using intermediary dots
   '''
-  for node in nuke.selectedNodes():
+  for node in nodes:
     nodeXpos = node.xpos()
     nodeYpos = node.ypos()
     nodeWidth = node.screenWidth()

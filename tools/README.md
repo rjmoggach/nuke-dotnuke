@@ -6,7 +6,7 @@ convenience functions (or ones being tested locally).
 TCL is NOT currently working... will get this back in when I decide on best practice
 way of doing it.
 
-## Guidelines
+## Requirements
 
 There's only one requirement really for these to work and that's an internal attribute **__menus__**
 that is part of the mynk tools init and will create menus for the commands.
@@ -30,3 +30,13 @@ As for the folder hierarchy, it's purely for organization but is replicated in t
 
 Eg. the above tool would be accessed at **mynk.tools.python.shuffleToLayers.shuffleToLayers()**
 while another deeper example is **mynk.tools.python.nodes.align.alignNodes.alignNodes()**
+
+## Other Notes
+
+I generally prefer to have nuke python tools that operate on a list which is almost always nuke.selectedNodes()
+so if you're looking at the code it may seem like there's a bit too much going on but it's because I want the option
+of selecting one or more nodes regardless of what's going on downstream.
+
+As another layer of convenience because there are often nodes that need to be created in a custom way,
+there is a python file called _builtins.py in the root of the python tools directory that only contains
+the __menus__ dict and no functions. I use this to add those custom node creators as menu items. Works well.

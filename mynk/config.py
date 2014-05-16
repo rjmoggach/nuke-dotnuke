@@ -5,9 +5,6 @@
 #
 # mynk/config.py -- provides functions for custom user configuration handling: get_config, set_config
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 import os
 import shutil
@@ -17,7 +14,6 @@ from configobj import ConfigObj
 
 from . import constants as _c
 from . import LOG
-from .internal import coerce_unicode
 
 
 class MyNkConfig(object):
@@ -27,10 +23,10 @@ class MyNkConfig(object):
 
   def init_cfg(self):
     '''Initialize the user config by copying the provided default config file'''
-    default_cfg_path = coerce_unicode(os.path.join(_c.MYNK_PATH, 'data'), _c.MYNK_CHARSET)
-    default_cfg_file_path = coerce_unicode(os.path.join(default_cfg_path, 'defaults.cfg'), _c.MYNK_CHARSET)
+    default_cfg_path = os.path.join(_c.MYNK_PATH, 'data')
+    default_cfg_file_path = os.path.join(default_cfg_path, 'defaults.cfg')
     user_cfg_path = _c.DOTNUKE_PATH
-    user_cfg_file_path = coerce_unicode(os.path.join(user_cfg_path, 'mynk.cfg'), _c.MYNK_CHARSET)
+    user_cfg_file_path = os.path.join(user_cfg_path, 'mynk.cfg')
     if not os.path.isdir(user_cfg_path):
       try:
         os.makedirs(user_cfg_path)

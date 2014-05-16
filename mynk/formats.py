@@ -5,18 +5,12 @@
 #
 # mynk/formats.py -- provides functions for setting image format defaults: add_format, add_formats_from_dict
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 import nuke
 
 from . import constants as _c
 from . import LOG
 from . import config
-from . import MyNkFormatsError
-
-from .internal import coerce_unicode
 
 LOG.info(' [MyNk] initializing custom user image formats')
 

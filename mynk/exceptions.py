@@ -6,9 +6,6 @@
 # mynk/exceptions.py -- provides exceptions for mynk, exceptions in their own module
 #                      avoids circular imports
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 
 # THIS DOESN'T REALLY DO ANYTHING RIGHT NOW - POSSIBLE FUTURE EXCEPTION HANDLING

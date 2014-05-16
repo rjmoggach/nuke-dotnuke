@@ -5,9 +5,6 @@
 #
 # mynk/gui.py -- provides functions for building mynk toolbar and menu: init_gui, add_toolbar, add_menu
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 # SHORT CUT SYNTAX
 # 'Ctrl-s'    "^s"
 # 'Ctrl-Shift-s'  "^+s"
@@ -27,13 +24,12 @@ import nuke
 from . import constants as _c
 from . import LOG
 from . import config
-from .internal import coerce_unicode
 
 import mynk
 
 class MyNkGui(object):
   def __init__(self):
-    nuke.pluginAddPath(coerce_unicode(os.path.join(_c.MYNK_PATH, 'icons'), _c.MYNK_CHARSET), addToSysPath=False)
+    nuke.pluginAddPath(os.path.join(_c.MYNK_PATH, 'icons'), addToSysPath=False)
     LOG.info(' [MyNk] initializing custom user menus etc.')
 
   def add_tool_menus(self, tool_str):
@@ -45,7 +41,7 @@ class MyNkGui(object):
     else:
       for key,val in menus.iteritems():
         title = key
-        cmd = '{0}.{1}'.format(tool_str, val['cmd'])
+        cmd = val['cmd'] if val['cmd'].startswith('nuke') else '{0}.{1}'.format(tool_str, val['cmd'])
         hotkey = val['hotkey']
         icon = val['icon']
         for menu in [self.menu,self.nuke_toolbar]:

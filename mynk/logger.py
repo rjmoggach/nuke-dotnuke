@@ -5,9 +5,6 @@
 #
 # mynk/logger.py -- wraps python logging to ease loggggging
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 # logging levels for reference:
 # DEBUG	Detailed information, typically of interest only when diagnosing problems.
 # INFO	Confirmation that things are working as expected.

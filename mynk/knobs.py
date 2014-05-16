@@ -5,16 +5,12 @@
 #
 # fsq/knobs.py -- provides functions for setting knob defaults: add_defaults, add_defaults_from_dict
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 import nuke
 
 from . import constants as _c
 from . import LOG
 from . import config
-from . import MyNkKnobsError
 
 LOG.info(' [MyNk] initializing custom user knob defaults')
 

@@ -5,9 +5,6 @@
 #
 # mynk/__init__.py -- wraps mynk in a bow
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 
 # logger relies on: constants

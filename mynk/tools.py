@@ -6,9 +6,6 @@
 # fsq/tools.py -- provides functions for easily adding tools into the module
 #                  namespace: add_tools_path
 #
-# mynk is all unicode internally, if you pass in strings,
-# they will be explicitly coerced to unicode.
-#
 
 import os
 import shutil
@@ -22,12 +19,11 @@ import nuke
 
 from . import constants as _c
 from . import LOG
-from .internal import coerce_unicode
 
 # checkout https://github.com/dsc/bunch
 from .bunch import Bunch
 
-MYNK_TOOLS_PATH = coerce_unicode(os.path.join(_c.DOTNUKE_PATH, 'tools', 'python'), _c.MYNK_CHARSET)
+MYNK_TOOLS_PATH = os.path.join(_c.DOTNUKE_PATH, 'tools', 'python')
 
 
 class MyNkTools(object):
