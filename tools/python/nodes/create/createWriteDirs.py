@@ -7,13 +7,13 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Nodes/Create Write Dirs': {
-    'cmd': 'createDir(nuke.selectedNodes())',
+  'Tools/Nodes/Create/Create Write Dirs': {
+    'cmd': 'createWriteDirs(nuke.selectedNodes())',
     'hotkey': '#+w',
     'icon': ''
   }
 }
-def createDir(nodes=[]):
+def createWriteDirs(nodes=[]):
   '''
   Makes directories for selected write nodes
   '''

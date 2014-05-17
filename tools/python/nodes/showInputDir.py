@@ -27,7 +27,7 @@ __menus__ = {
 }
 
 
-def showDir(nodes=[]):
+def showInputDir(nodes=[]):
   '''
   function that shows a file browser window
   for the directory in a read or write node

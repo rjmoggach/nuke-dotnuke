@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Nodes/Paste To Selected': {
+  'Tools/Edit/Paste To Selected': {
     'cmd': 'pasteToSelected()',
     'hotkey': '^+v',
     'icon': ''

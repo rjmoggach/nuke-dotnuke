@@ -59,7 +59,7 @@ class MyNkGui(object):
     nuke_menu = nuke.menu('Nuke')
     self.menu = nuke_menu.addMenu('MyNk', icon='mynk.png')
     nuke_toolbar = nuke.menu("Nodes")
-    self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", "mynk.png")
+    self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", "mynkx.png")
 
   def add_entry_to_toolbar(self, entry):
     pass

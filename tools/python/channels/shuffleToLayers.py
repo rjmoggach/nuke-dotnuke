@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Layers/Shuffle Layers': {
+  'Tools/Channels/Shuffle Layers': {
     'cmd': 'shuffleToLayers(nuke.selectedNodes())',
     'hotkey': '#s',
     'icon': ''
