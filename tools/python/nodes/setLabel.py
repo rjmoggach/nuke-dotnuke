@@ -1,27 +1,42 @@
 import nuke
 
+# SHORT CUT SYNTAX
+# 'Ctrl-s' "^s"
+# 'Ctrl-Shift-s' "^+s"
+# 'Alt-Shift-s' "#+s"
+# 'Shift+F4' "+F4"
+
 __menus__ = {
   'Tools/Nodes/Set Label': {
-    'cmd': 'setLabel(nuke.selectedNodes())',
+    'cmd': 'setLabel()',
     'hotkey': '',
     'icon': ''
   }
 }
 
-def setLabel(nodes):
-	'''Quickly edit the label for the selected node'''
-	for node in nodes:
-	 node_label = node['label'].value()
-	 node_name = node.name()
-	 title = 'Edit Label for {0}'.format(node_name)
-	 p = nuke.Panel(title)
-	 p.setTitle(title)
-	 p.setWidth(400)
-	 p.addNotepad('Label', node_label)
-	 result = p.show()
-	 if result:
-	   label = p.value('label')
-	   try:
-	     node['label'].setValue(label)
-	   except:
-	     return
+def setLabel():
+    
+    '''Quick edit the label for the selected node'''
+    
+    try:
+        sn = nuke.selectedNodes()[-1]
+        snLabel = sn['label'].value()
+        snName = sn.name()
+    except:
+        sn = None
+        return
+    
+    p = nuke.Panel( 'Edit Label' )
+    p.setTitle( 'Edit label for %s' % snName )
+    p.setWidth( 350 )
+    p.addNotepad('Label', snLabel)
+    result = p.show()
+    
+    if result:
+        label = p.value('Label')
+        try:
+            sn['label'].setValue(label)
+        except:
+            return
+            
+            

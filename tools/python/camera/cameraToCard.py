@@ -1,5 +1,11 @@
 import nuke
 
+# SHORT CUT SYNTAX
+# 'Ctrl-s' "^s"
+# 'Ctrl-Shift-s' "^+s"
+# 'Alt-Shift-s' "#+s"
+# 'Shift+F4' "+F4"
+
 __menus__ = {
   'Tools/Camera/Camera -> Card':  {
     'cmd': 'cameraToCard()',

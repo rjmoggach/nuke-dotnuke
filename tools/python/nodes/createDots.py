@@ -1,9 +1,15 @@
 import nuke
 
+# SHORT CUT SYNTAX
+# 'Ctrl-s' "^s"
+# 'Ctrl-Shift-s' "^+s"
+# 'Alt-Shift-s' "#+s"
+# 'Shift+F4' "+F4"
+
 __menus__ = {
   'Tools/Nodes/Create Dots': {
     'cmd': 'createDots(nuke.selectedNodes())',
-    'hotkey': '',
+    'hotkey': '+.',
     'icon': ''
   }
 }

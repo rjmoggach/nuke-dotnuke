@@ -1,14 +1,20 @@
 import nuke
 
+# SHORT CUT SYNTAX
+# 'Ctrl-s' "^s"
+# 'Ctrl-Shift-s' "^+s"
+# 'Alt-Shift-s' "#+s"
+# 'Shift+F4' "+F4"
+
 __menus__ = {
   'Tools/Nodes/Align/Align Nodes X':  {
     'cmd': 'alignNodes(nuke.selectedNodes())',
-    'hotkey': '',
+    'hotkey': '#x',
     'icon': ''
   },
   'Tools/Nodes/Align/Align Nodes Y':  {
     'cmd': 'alignNodes(nuke.selectedNodes(), "y")',
-    'hotkey': '',
+    'hotkey': '#y',
     'icon': ''
   }
 }
