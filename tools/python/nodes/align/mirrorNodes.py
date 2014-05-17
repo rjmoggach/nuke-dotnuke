@@ -8,12 +8,12 @@ import nuke
 
 __menus__ = {
   'Tools/Nodes/Align/Mirror Nodes X':  {
-    'cmd': 'alignNodes(nuke.selectedNodes())',
+    'cmd': 'mirrorNodes(nuke.selectedNodes())',
     'hotkey': '#+x',
     'icon': ''
   },
   'Tools/Nodes/Align/Mirror Nodes Y':  {
-    'cmd': 'alignNodes(nuke.selectedNodes(), "y")',
+    'cmd': 'mirrorNodes(nuke.selectedNodes(), "y")',
     'hotkey': '#+y',
     'icon': ''
   }

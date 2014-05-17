@@ -9,7 +9,7 @@ import nuke
 __menus__ = {
   'Tools/Edit/Paste To Selected': {
     'cmd': 'pasteToSelected()',
-    'hotkey': '^+v',
+    'hotkey': '#+v',
     'icon': ''
   }
 }

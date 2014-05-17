@@ -9,7 +9,7 @@ import nuke
 __menus__ = {
   'Tools/Nodes/Create Dots': {
     'cmd': 'createDots(nuke.selectedNodes())',
-    'hotkey': '+.',
+    'hotkey': '#.',
     'icon': ''
   }
 }

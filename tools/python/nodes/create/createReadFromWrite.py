@@ -13,7 +13,7 @@ from nukescripts import panels
 __menus__ = {
   'Tools/Nodes/Create/Read From Write': {
     'cmd': 'createReadFromWrite(nuke.selectedNodes())',
-    'hotkey': '#s',
+    'hotkey': '#+r',
     'icon': ''
   }
 }
