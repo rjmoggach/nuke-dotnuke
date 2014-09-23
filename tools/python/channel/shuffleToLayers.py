@@ -15,22 +15,28 @@ __menus__ = {
 }
 
 
-def shuffleToLayers(nodes):
+def shuffleToLayers(nodes, margins=[50,30], dots=True):
   '''
   Shuffles a multi-layer EXR to multiple shuffle nodes
   '''
+  node_xywh=[]
+  dot_xywh=[]
+  shuf_xywh=[]
   for node in nodes:
     channels = nuke.channels(node)
-    posX = node['xpos'].value()
-    posY = node['ypos'].value()
+    if not node_xywh:
+      node_xywh = [node.xpos(),node.ypos(), node.screenWidth(), node.screenHeight()]
+    else:
+      node.setXYpos(shuf_xywh[0] + (shuf_xywh[2] + dot_xywh[2])/2 + margins[0], dot_xywh[1] - margins[1] - node_xywh[3])
     layers = []
     validChannels = ['red', 'green', 'blue', 'alpha', 'black', 'white']
+    dot_xywh = []
 
     for each in channels:
       layerName = each.split('.')[0]
       tmp = []
       for channel in channels:
-        if channel.startswith(layerName) == True:
+        if channel.startswith(layerName):
           tmp.append(channel)
       if len(tmp) < 4:
         for i in range(4-len(tmp)):
@@ -66,9 +72,25 @@ def shuffleToLayers(nodes):
         channel4 = "%s %s" % (channel4, channel4)
 
       prefs = "in %s %s %s %s %s" % (layer, channel1, channel2, channel3, channel4)
+
+      dot = nuke.nodes.Dot()
       shuffle = nuke.createNode('Shuffle', prefs)
       shuffle.knob('label').setValue('[value in]')
-      shuffle.setInput(0, node)
+      shuffle.setInput(0, dot)
 
+      if not dot_xywh:
+        dot.setInput(0, node)
+        dot_xywh = [dot.xpos(), dot.ypos(), dot.screenWidth(), dot.screenHeight()]
+        if not shuf_xywh:
+          dot.setXYpos( node_xywh[0] + (node_xywh[2]-dot_xywh[2])/2, node_xywh[1] + node_xywh[3] + margins[1])
+        else:
+          dot.setXYpos( shuf_xywh[0] + margins[0] + shuf_xywh[2], shuf_xywh[1] - margins[1] - dot_xywh[3])
+      else:
+        dot.setInput(0, nuke.toNode(dotName))
+        dot.setXYpos(dot_xywh[0] + shuffle.screenWidth() + margins[0], dot_xywh[1])        
 
+      dotName = dot.name()
+      dot_xywh = [dot.xpos(), dot.ypos(), dot.screenWidth(), dot.screenHeight()]
+      shuffle.setXYpos(dot_xywh[0]-(shuffle.screenWidth()-dot_xywh[2])/2, dot_xywh[1] + dot_xywh[3] + margins[1])
+      shuf_xywh = [shuffle.xpos(), shuffle.ypos(), shuffle.screenWidth(), shuffle.screenHeight()]
 
