@@ -13,3 +13,9 @@ dist
 mynk.cfg
 mynk.old
 layout*.xml
+preferences*
+uistate*
+*hrox
+hiero*
+MTTF*
+folders.nk

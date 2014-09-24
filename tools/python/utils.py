@@ -6,6 +6,8 @@ import re
 
 import nuke
 
+__menus__ = {}
+
 def getScene():
   root_name = nuke.toNode("root").name()
   return root_name
