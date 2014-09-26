@@ -182,6 +182,4 @@ class ArchiveInterface(object):
     logFile.close()
 
 
-ai = archiveInterface()
-
 
