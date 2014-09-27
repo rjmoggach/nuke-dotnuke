@@ -6,28 +6,23 @@ import time
 import nuke
 import nukescripts
 
-__menus__ = {}
+__menus__ = {
+  'Tools/File/Archive Script...':  {
+    'cmd': 'ArchiveInterface()',
+    'hotkey': '',
+    'icon': ''
+  }
+}
 
 class ArchiveInterface(object):
   
   def __init__(self, logArchive=False):
     self.logArchive = logArchive
     self.scriptInfo = nukescripts.get_script_data()
-
-  def interface(self):
-    self.panel = nukescripts.PythonPanel('Archive script')
-    self.file = nuke.File_Knob('Output','Output folder:')
-    self.panel.addKnob(self.file)
-    self.scriptName = nuke.String_Knob('name','Script name:','script.nk')
-    self.panel.addKnob(self.scriptName)
-    self.log = nuke.Boolean_Knob('log','Generate log:', self.logArchive)
-    self.panel.addKnob(self.log)
-    self.comment = nuke.Multiline_Eval_String_Knob('comment','Comments:')
-    self.panel.addKnob(self.comment)
-    result = self.panel.showModalDialog()
-    if result:
+    self.init_interface()
+    if self.show_interface():
       self.action()
-  
+
   def init_interface(self):
     self.panel = nukescripts.PythonPanel('Archive script')
     panel_knobs = []

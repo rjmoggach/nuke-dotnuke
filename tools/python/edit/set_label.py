@@ -8,13 +8,13 @@ import nuke
 
 __menus__ = {
   'Tools/Edit/Set Label': {
-    'cmd': 'setLabel()',
+    'cmd': 'set_label()',
     'hotkey': 'F9',
     'icon': ''
   }
 }
 
-def setLabel():
+def set_label():
     
     '''Quick edit the label for the selected node'''
     
