@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Nodes/Create Dots': {
+  'Tools/Edit/Nodes/Create Dots': {
     'cmd': 'createDots(nuke.selectedNodes())',
     'hotkey': '#.',
     'icon': ''

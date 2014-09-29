@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Edit/Set Label': {
+  'Tools/Edit/Nodes/Set Label': {
     'cmd': 'set_label()',
     'hotkey': 'F9',
     'icon': ''

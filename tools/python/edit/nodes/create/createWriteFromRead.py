@@ -10,7 +10,7 @@ from nukescripts import panels
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Nodes/Create/Write From Read': {
+  'Tools/Edit/Nodes/Create/Write From Read': {
     'cmd': 'createWriteFromRead(nuke.selectedNodes())',
     'hotkey': '#w',
     'icon': ''

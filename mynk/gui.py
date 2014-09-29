@@ -39,13 +39,19 @@ class MyNkGui(object):
     except AttributeError:
       LOG.warning(' [MyNk] tool has no __menus__ attribute: {0}'.format(tool_str))
     else:
-      for key,val in menus.iteritems():
-        title = key
-        cmd = val['cmd'] if val['cmd'].startswith('nuke') else '{0}.{1}'.format(tool_str, val['cmd'])
-        hotkey = val['hotkey']
-        icon = val['icon']
-        for menu in [self.menu,self.nuke_toolbar]:
-          menu.addCommand(title,cmd,hotkey,icon)
+      if menus is None:
+        return
+      else:
+        for key,val in menus.iteritems():
+          title = key
+          if val:
+            cmd = val['cmd'] if val['cmd'].startswith('nuke') else '{0}.{1}'.format(tool_str, val['cmd'])
+            hotkey = val['hotkey']
+            icon = val['icon']
+            for menu in [self.menu,self.nuke_toolbar]:
+              menu.addCommand(title,cmd,hotkey,icon)
+          else:
+            menu.addMenu(title)
             
   def add_toolbunch_to_menu(self, toolbunch_str):
     for key,val in eval(toolbunch_str).toDict().iteritems():

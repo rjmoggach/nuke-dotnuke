@@ -9,7 +9,7 @@ import nuke
 __menus__ = {
   'Tools/Channel/Shuffle Layers': {
     'cmd': 'shuffleToLayers(nuke.selectedNodes())',
-    'hotkey': '#s',
+    'hotkey': '',
     'icon': ''
   }
 }

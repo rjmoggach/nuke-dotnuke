@@ -7,12 +7,12 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Nodes/Align/Align Nodes X':  {
+  'Tools/Edit/Nodes/Align/Align Nodes X':  {
     'cmd': 'alignNodes(nuke.selectedNodes())',
     'hotkey': '#x',
     'icon': ''
   },
-  'Tools/Nodes/Align/Align Nodes Y':  {
+  'Tools/Edit/Nodes/Align/Align Nodes Y':  {
     'cmd': 'alignNodes(nuke.selectedNodes(), "y")',
     'hotkey': '#y',
     'icon': ''
