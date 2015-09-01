@@ -7,7 +7,7 @@ import nuke
 import nukescripts
 
 __menus__ = {
-  'Tools/File/Archive Script...':  {
+  'File/Archive Script...':  {
     'cmd': 'ArchiveInterface()',
     'hotkey': '',
     'icon': ''

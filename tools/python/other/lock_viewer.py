@@ -1,16 +1,16 @@
 import nuke
 
 __menus__ = {
-  'Tools/Other/Lock Viewer/1':  { 'cmd': 'LockViewer1()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/2':  { 'cmd': 'LockViewer2()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/3':  { 'cmd': 'LockViewer3()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/4':  { 'cmd': 'LockViewer4{)', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/5':  { 'cmd': 'LockViewer5()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/6':  { 'cmd': 'LockViewer6()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/7':  { 'cmd': 'LockViewer7()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/8':  { 'cmd': 'LockViewer8()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/9':  { 'cmd': 'LockViewer9()', 'hotkey': '', 'icon': ''},
-  'Tools/Other/Lock Viewer/10':  { 'cmd': 'LockViewer10()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/1':  { 'cmd': 'LockViewer1()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/2':  { 'cmd': 'LockViewer2()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/3':  { 'cmd': 'LockViewer3()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/4':  { 'cmd': 'LockViewer4{)', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/5':  { 'cmd': 'LockViewer5()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/6':  { 'cmd': 'LockViewer6()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/7':  { 'cmd': 'LockViewer7()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/8':  { 'cmd': 'LockViewer8()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/9':  { 'cmd': 'LockViewer9()', 'hotkey': '', 'icon': ''},
+  'Other/Lock Viewer/10':  { 'cmd': 'LockViewer10()', 'hotkey': '', 'icon': ''},
 }
 
 # Viewerbuffer are offsetted in Nuke by 1 -> for example: viewer1=0, viewer2=1, viewer3=2

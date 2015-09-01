@@ -7,12 +7,12 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Camera/Camera -> Card':  {
+  'Camera/Camera -> Card':  {
     'cmd': 'cameraToCard()',
     'hotkey': '',
     'icon': ''
   },
-  'Tools/Camera/Card -> Camera':  {
+  'Camera/Card -> Camera':  {
     'cmd': 'cardToCamera()',
     'hotkey': '',
     'icon': ''

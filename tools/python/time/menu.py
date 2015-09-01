@@ -1,3 +1,3 @@
 import nuke
 import frameHoldSet
-nuke.addOnUserCreate(frameHoldSet.frameHoldSet, nodeClass="FrameHold") 
+nuke.addOnUserCreate(frameHoldSet.frame_hold_set, nodeClass="FrameHold") 

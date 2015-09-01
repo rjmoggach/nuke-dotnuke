@@ -2,7 +2,7 @@ import nuke
 
 
 __menus__ = {
-  'Tools/Time/Frame Hold Now':  {
+  'Time/Frame Hold Now':  {
     'cmd': 'frame_hold_set(nuke.selectedNode())',
     'hotkey': '',
     'icon': ''

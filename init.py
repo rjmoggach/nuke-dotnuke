@@ -31,7 +31,8 @@ def filenameFix(filename):
   return filename
 
 
-import nuke
-nuke_toolbar = nuke.menu("Nodes")
-foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
-foot.addCommand('-','','')
+if nuke.GUI:
+	import nuke
+	nuke_toolbar = nuke.menu("Nodes")
+	foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
+	foot.addCommand('-','','')

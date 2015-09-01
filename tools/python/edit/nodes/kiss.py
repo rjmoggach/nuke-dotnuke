@@ -7,12 +7,12 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Edit/Nodes/Kiss/Kiss Up':  {
+  'Edit/Nodes/Kiss/Kiss Up':  {
     'cmd': 'kiss_up()',
     'hotkey': 'F1',
     'icon': ''
   },
-  'Tools/Edit/Nodes/Kiss/Kiss Down':  {
+  'Edit/Nodes/Kiss/Kiss Down':  {
     'cmd': 'kiss_down()',
     'hotkey': 'F2',
     'icon': ''

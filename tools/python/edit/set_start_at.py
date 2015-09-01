@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Edit/Nodes/Set Start At': {
+  'Edit/Nodes/Set Start At': {
     'cmd': 'set_start_at(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''

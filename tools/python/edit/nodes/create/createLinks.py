@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Edit/Nodes/Create/Symbolic Links': {
+  'Edit/Nodes/Create/Symbolic Links': {
     'cmd': 'createLinks(nuke.selectedNodes())',
     'hotkey': '',
     'icon': ''

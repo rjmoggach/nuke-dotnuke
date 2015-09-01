@@ -7,12 +7,12 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Tools/Edit/Nodes/Align/Mirror Nodes X':  {
+  'Edit/Nodes/Align/Mirror Nodes X':  {
     'cmd': 'mirrorNodes(nuke.selectedNodes())',
     'hotkey': '#+x',
     'icon': ''
   },
-  'Tools/Edit/Nodes/Align/Mirror Nodes Y':  {
+  'Edit/Nodes/Align/Mirror Nodes Y':  {
     'cmd': 'mirrorNodes(nuke.selectedNodes(), "y")',
     'hotkey': '#+y',
     'icon': ''
