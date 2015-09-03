@@ -15,9 +15,9 @@ __menus__ = {
 }
 
 def set_label():
-    
+
     '''Quick edit the label for the selected node'''
-    
+
     try:
         sn = nuke.selectedNodes()[-1]
         snLabel = sn['label'].value()
@@ -25,18 +25,18 @@ def set_label():
     except:
         sn = None
         return
-    
+
     p = nuke.Panel( 'Edit Label' )
     p.setTitle( 'Edit label for %s' % snName )
     p.setWidth( 350 )
     p.addNotepad('Label', snLabel)
     result = p.show()
-    
+
     if result:
         label = p.value('Label')
         try:
             sn['label'].setValue(label)
         except:
             return
-            
-            
+
+

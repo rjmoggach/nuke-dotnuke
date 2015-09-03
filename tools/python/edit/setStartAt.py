@@ -15,7 +15,7 @@ __menus__ = {
 }
 
 def set_start_at(nodes):
-    
+
     '''Quick change a read node to start at a frame'''
     if not nodes:
       return

@@ -66,3 +66,40 @@ def showInputDir(nodes=[]):
         os.popen2(cmd)
         #os.system(cmd)
   return
+
+
+################
+
+import nuke
+import os
+import subprocess
+import platform
+
+################
+
+def sb_revealInFileBrowser():
+
+  n = nuke.selectedNodes("Read") + nuke.selectedNodes("Write")
+
+  if len(n) == 0:
+    nuke.message("Select at least one Read or Write node.")
+    return
+
+  if len(n) > 3:
+    makeSure = nuke.ask("Are you sure you want to open {0} file browser windows?".format(len(n)))
+    if not makeSure:
+      return
+
+  for i in n:
+    try:
+      getPath = i["file"].evaluate().split("/")[:-1]
+      folderPath = "/".join(getPath)
+
+      if platform.system() == "Windows":
+        subprocess.Popen('explorer "{0}"'.format(folderPath.replace("/", "\\")))
+      elif platform.system() == "Darwin":
+        subprocess.Popen(["open", folderPath])
+      elif platform.system() == "Linux":
+        subprocess.Popen(["xdg-open", folderPath])
+    except:
+      continue
