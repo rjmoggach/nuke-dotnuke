@@ -33,6 +33,7 @@ def filenameFix(filename):
 
 if nuke.GUI:
 	import nuke
+	import hiero_tools
 	nuke_toolbar = nuke.menu("Nodes")
 	foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
 	foot.addCommand('-','','')
