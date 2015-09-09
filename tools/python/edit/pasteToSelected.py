@@ -7,7 +7,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-  'Edit/Nodes/Paste To Selected': {
+  'Edit/Paste To Selected': {
     'cmd': 'pasteToSelected()',
     'hotkey': '#+v',
     'icon': ''
@@ -18,7 +18,7 @@ __menus__ = {
 def toggleSelection(node):
     newValue = not node['selected'].value()
     node['selected'].setValue(newValue)
-    
+
 def pasteToSelected():
     if not nuke.selectedNodes():
         nuke.nodePaste('%clipboard%')

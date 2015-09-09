@@ -1,5 +1,7 @@
-import os, platform
 import nuke
+import os
+import subprocess
+import platform
 
 # SHORT CUT SYNTAX
 # 'Ctrl-s' "^s"
@@ -7,15 +9,28 @@ import nuke
 # 'Alt-Shift-s' "#+s"
 # 'Shift+F4' "+F4"
 
+NAUTILUS_CMD = '/usr/bin/nautilus'
+KONQUEROR_CMD = '/usr/bin/konqueror'
+MACOSX_CMD = 'open'
+WINDOWS_CMD = 'explorer'
+MAX_NODES = 4
+
 if platform.system() == 'Linux':
-  if os.path.exists('/usr/bin/nautilus'):
-    _browser = 'Nautilus'
-  if os.path.exists('/usr/bin/konqueror'):
-    _browser = 'Konqueror'
+  if os.path.exists(NAUTILUS_CMD):
+    BROWSER = 'Nautilus'
+    BROWSER_CMD = NAUTILUS_CMD
+  elif os.path.exists(KONQUEROR_CMD):
+    BROWSER = 'Konqueror'
+    BROWSER_CMD = KONQUEROR_CMD
+  else:
+    BROWSER = 'Browser'
+    BROWSER_CMD = 'xdg-open'
 elif platform.system() == 'Darwin':
-    _browser = 'Finder'
+  BROWSER = 'Finder'
+  BROWSER_CMD = MACOSX_CMD
 else:
-  _browser = 'Explorer'
+  BROWSER = 'Explorer'
+  BROWSER_CMD = WINDOWS_CMD
 
 
 __menus__ = {
@@ -34,72 +49,40 @@ def showInputDir(nodes=[]):
   '''
   # if no nodes are specified then look for selected nodes
   if not nodes:
-    nodes = nuke.selectedNodes()
+    nodes = nuke.selectedNodes("Read") + nuke.selectedNodes("Write")
 
   # if nodes is still empty no nodes are selected
   if not nodes:
     nuke.message('ERROR: No node(s) selected.')
     return
 
-  for entry in nodes:
-    _class = entry.Class()
-    if _class == "Write" or _class == "Read":
-      path = nuke.filename(entry)
+  if len(nodes) > MAX_NODES:
+    confirm = nuke.ask("Are you sure you want to open {0} {1} windows?".format(len(nodes), BROWSER))
+    if not confirm:
+      return
+
+  for node in nodes:
+    _class = node.Class()
+    if not _class == 'Write' or not _class == 'Read':
+      continue
+    else:
+      path = nuke.filename(node)
       if path is None:
         continue
       if path[-1:] is '/':
         path = path[:-1]
       root_path = os.path.dirname(os.path.dirname(path))
-      for n in nuke.selectedNodes():
-        n['selected'].setValue(False)
-      if platform.system() == 'Linux':
-        if os.path.exists('/usr/bin/nautilus'):
-          os.popen2('/usr/bin/nautilus %s' % root_path)
-        if os.path.exists('/usr/bin/konqueror'):
-          os.popen2('/usr/bin/konqueror %s' % root_path)
-      elif platform.system() == 'Darwin':
-        os.popen2('open %s' % root_path)
-      else:
-        u=os.path.split(path)[0]
-        u = os.path.normpath(u)
-        cmd = 'explorer "%s"' % (u)
-        os.popen2(cmd)
-        #os.system(cmd)
-  return
+    node['selected'].setValue(False)
 
-
-################
-
-import nuke
-import os
-import subprocess
-import platform
-
-################
-
-def sb_revealInFileBrowser():
-
-  n = nuke.selectedNodes("Read") + nuke.selectedNodes("Write")
-
-  if len(n) == 0:
-    nuke.message("Select at least one Read or Write node.")
-    return
-
-  if len(n) > 3:
-    makeSure = nuke.ask("Are you sure you want to open {0} file browser windows?".format(len(n)))
-    if not makeSure:
-      return
-
-  for i in n:
     try:
-      getPath = i["file"].evaluate().split("/")[:-1]
-      folderPath = "/".join(getPath)
-
+      path = i["file"].evaluate().split("/")[:-1]
+      root_path = "/".join(getPath)
       if platform.system() == "Windows":
-        subprocess.Popen('explorer "{0}"'.format(folderPath.replace("/", "\\")))
-      elif platform.system() == "Darwin":
-        subprocess.Popen(["open", folderPath])
-      elif platform.system() == "Linux":
-        subprocess.Popen(["xdg-open", folderPath])
+        root_path = root_path.replace("/", "\\")
+        subprocess.Popen('{0} "{1}"'.format(BROWSER_CMD, root_path))
+      else:
+        subprocess.Popen([BROWSER_CMD, root_path])
     except:
       continue
+
+  return
