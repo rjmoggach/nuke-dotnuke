@@ -22,18 +22,24 @@ import platform
 
 
 # Filename Fix
-# fix paths based on 
+# fix paths based on
 def filenameFix(filename):
-  if platform.system() in ("Windows", "Microsoft"):
-    filename = filename.replace( "/psyop/pfs", "P:" )
-  else:
-    filename = filename.replace( "P:", "/psyop/pfs" )
-  return filename
+    if platform.system() in ("Windows", "Microsoft"):
+        filename = filename.replace( "/psyop/pfs", "P:" )
+    else:
+        filename = filename.replace( "P:", "/psyop/pfs" )
+    return filename
 
 
 if nuke.GUI:
-	import nuke
-	import hiero_tools
+    try:
+    	import nuke
+    except:
+        print "Could not import: nuke"
+    # try:
+    # 	import hiero_tools
+    # except:
+    #     print "Could not import: hiero_tools"
 	nuke_toolbar = nuke.menu("Nodes")
 	foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
 	foot.addCommand('-','','')
