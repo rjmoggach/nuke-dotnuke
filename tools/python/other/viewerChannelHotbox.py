@@ -25,7 +25,7 @@ class LayerButton(QtGui.QPushButton):
         self.setText(name)
 
 
-        self.setMinimumWidth ( butWidth/2 )
+        # self.setMinimumWidth ( butWidth/2 )
         self.setStyleSheet(" background-color:#282828;  font:  13px ")
 
     def enterEvent(self,event):

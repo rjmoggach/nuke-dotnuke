@@ -34,7 +34,7 @@ else:
 
 
 __menus__ = {
-  'Edit/Nodes/Show in {0}'.format(_browser): {
+  'Edit/Nodes/Show in {0}'.format(BROWSER): {
     'cmd': 'showInputDir(nuke.selectedNodes())',
     'hotkey': '#r',
     'icon': ''

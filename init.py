@@ -23,12 +23,12 @@ import platform
 
 # Filename Fix
 # fix paths based on
-def filenameFix(filename):
-    if platform.system() in ("Windows", "Microsoft"):
-        filename = filename.replace( "/psyop/pfs", "P:" )
-    else:
-        filename = filename.replace( "P:", "/psyop/pfs" )
-    return filename
+# def filenameFix(filename):
+#     if platform.system() in ("Windows", "Microsoft"):
+#         filename = filename.replace( "/psyop/pfs", "P:" )
+#     else:
+#         filename = filename.replace( "P:", "/psyop/pfs" )
+#     return filename
 
 
 if nuke.GUI:

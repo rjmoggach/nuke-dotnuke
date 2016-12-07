@@ -45,3 +45,17 @@ if nuke.GUI:
 
 
   #nuke.pluginAddPath('/Users/rob/.nuke/mygui', addToSysPath=False)
+
+  try:
+    import DeadlineNukeClient
+    menubar = nuke.menu("Nuke")
+    tbmenu = menubar.addMenu("&Thinkbox")
+    tbmenu.addCommand("Submit Nuke To Deadline", DeadlineNukeClient.main, "")
+    try:
+        if nuke.env[ 'studio' ]:
+            import DeadlineNukeFrameServerClient
+            tbmenu.addCommand("Reserve Frame Server Slaves", DeadlineNukeFrameServerClient.main, "")
+    except:
+        pass
+  except:
+    pass
