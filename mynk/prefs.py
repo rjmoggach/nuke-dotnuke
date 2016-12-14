@@ -42,14 +42,14 @@ def preferencesCreatedCallback():
     
     #Knobs created. Hide obselete ones, update ver
     #2.1
-	try:
-		p["j_ops_ver"].setValue(2.0201)
-		try:
-			p["j_ops_enable_bookmark"].setFlag(nuke.INVISIBLE)
-		except Exception:
-			pass
-	except Exception:
-		pass
+    try:
+        p["j_ops_ver"].setValue(2.0201)
+        try:
+            p["j_ops_enable_bookmark"].setFlag(nuke.INVISIBLE)
+        except Exception:
+            pass
+    except Exception:
+        pass
                     
     #Check for preference setting, and if drop enabled add its callback/
     dropEnabled = False

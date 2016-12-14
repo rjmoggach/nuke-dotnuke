@@ -33,13 +33,13 @@ import platform
 
 if nuke.GUI:
     try:
-    	import nuke
+        import nuke
     except:
         print "Could not import: nuke"
     # try:
-    # 	import hiero_tools
+    #     import hiero_tools
     # except:
     #     print "Could not import: hiero_tools"
-	nuke_toolbar = nuke.menu("Nodes")
-	foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
-	foot.addCommand('-','','')
+    nuke_toolbar = nuke.menu("Nodes")
+    foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
+    foot.addCommand('-','','')

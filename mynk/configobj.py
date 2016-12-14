@@ -74,7 +74,7 @@ def match_utf8(encoding):
 squot = "'%s'"
 dquot = '"%s"'
 noquot = "%s"
-wspace_plus = ' \r\n\v\t\'"'
+wspace_plus = ' \r\n\v    \'"'
 tsquot = '"""%s"""'
 tdquot = "'''%s'''"
 
@@ -114,7 +114,7 @@ OPTION_DEFAULTS = {
     'file_error': False,
     'configspec': None,
     'stringify': True,
-    # option may be set to one of ('', ' ', '\t')
+    # option may be set to one of ('', ' ', '    ')
     'indent_type': None,
     'encoding': None,
     'default_encoding': None,

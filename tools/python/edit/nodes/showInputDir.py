@@ -43,6 +43,7 @@ __menus__ = {
 
 
 def showInputDir(nodes=[]):
+  print "TEST"
   '''
   function that shows a file browser window
   for the directory in a read or write node
@@ -79,6 +80,7 @@ def showInputDir(nodes=[]):
       root_path = "/".join(getPath)
       if platform.system() == "Windows":
         root_path = root_path.replace("/", "\\")
+        print '{0} "{1}"'.format(BROWSER_CMD, root_path)
         subprocess.Popen('{0} "{1}"'.format(BROWSER_CMD, root_path))
       else:
         subprocess.Popen([BROWSER_CMD, root_path])
