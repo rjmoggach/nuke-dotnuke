@@ -33,6 +33,6 @@ try:
   MYNK_DEVEL = True if os.environ.get("MYNK_DEVEL", False) in ['1', 'true', 'True'] else False
   LOG.debug(u'MYNK_DEVEL attribute is {0}'.format(MYNK_DEVEL) )
 
-except ValueError, e:
+except ValueError as e:
   LOG.error(errno.EINVAL, e.message)
 

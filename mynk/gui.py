@@ -42,7 +42,7 @@ class MyNkGui(object):
       if menus is None:
         return
       else:
-        for key,val in menus.iteritems():
+        for key,val in menus.items():
           title = key
           if val:
             cmd = val['cmd'] if val['cmd'].startswith('nuke') else '{0}.{1}'.format(tool_str, val['cmd'])
@@ -54,7 +54,7 @@ class MyNkGui(object):
             menu.addMenu(title)
             
   def add_toolbunch_to_menu(self, toolbunch_str):
-    for key,val in eval(toolbunch_str).toDict().iteritems():
+    for key,val in eval(toolbunch_str).toDict().items():
       dottedpath = '{0}.{1}'.format(toolbunch_str,key)
       if inspect.ismodule(val):
         self.add_tool_menus(dottedpath)

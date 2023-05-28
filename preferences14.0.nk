@@ -1,0 +1,57 @@
+Preferences {
+ inputs 0
+ name Preferences
+  AutoSaveName /Volumes/Thunder1/NukeTempDir/.autosave
+  localCachePath /Volumes/Thunder1/NukeTempDir/localize
+  localizationMode off
+  DiskCachePath /Volumes/Thunder1/NukeTempDir/
+  selectedGPUDeviceName "no GPU available"
+  platformPathRemaps ""
+  reopenMovesPanel true
+  colorPickerDefaultMode "floating color picker"
+  GridWidth 240
+  GridHeight 48
+  dot_node_scale 2
+  defaultFlipbook "Flipbook Viewer"
+  addUserKnob {20 hotboxLabel l W_hotbox}
+  addUserKnob {26 hotboxGeneralLabel l <b>General</b>}
+  addUserKnob {1 hotboxVersion l version +HIDDEN}
+  hotboxVersion 1.8
+  addUserKnob {2 hotboxLocation l "Hotbox location" t "The folder on disk the Hotbox uses to store the Hotbox buttons. Make sure this path links to the folder containing the 'All','Single' and 'Multiple' folders."}
+  hotboxLocation /Users/rob/.nuke/W_hotbox
+  addUserKnob {2 hotboxIconLocation l "Icons location" t "The folder on disk the where the Hotbox related icons are stored. Make sure this path links to the folder containing the PNG files."}
+  hotboxIconLocation /Users/rob/.nuke/icons/W_hotbox
+  addUserKnob {22 hotboxOpenManager l "open hotbox manager" t "Open the Hotbox Manager." T W_hotboxManager.showHotboxManager() +STARTLINE}
+  addUserKnob {22 hotboxOpenFolder l "open hotbox folder" t "Open the folder containing the files that store the Hotbox buttons. It's advised not to mess around in this folder unless you understand what you're doing." -STARTLINE T W_hotbox.revealInBrowser(True)}
+  addUserKnob {22 hotboxDeletePreferences l "delete preferences" t "Delete all the Hotbox related knobs from the Preferences Panel. After clicking this button the Preferences Panel should be closed by clicking the 'cancel' button." -STARTLINE T W_hotbox.deletePreferences()}
+  addUserKnob {26 hotboxLaunchLabel l <b>Launch</b>}
+  addUserKnob {1 hotboxShortcut l Shortcut t "The key that triggers the Hotbox. Should be set to a single key without any modifier keys. Spacebar can be defined as 'space'. Nuke needs be restarted in order for the changes to take effect."}
+  hotboxShortcut `
+  addUserKnob {22 hotboxResetShortcut l set t "Apply new shortcut." -STARTLINE T W_hotbox.resetMenuItems()}
+  addUserKnob {4 hotboxTriggerDropdown l "Launch mode" t "The way the hotbox is launched. When set to 'Press and Hold' the Hotbox will appear whenever the shortcut is pressed and disappear as soon as the user releases the key. When set to 'Single Tap' the shortcut will toggle the Hotbox on and off." M {"Press and Hold" "Single Tap"}}
+  addUserKnob {6 hotboxCloseOnClick l "Close on button click" t "Close the Hotbox whenever a button is clicked (excluding submenus obviously). This option will only take effect when the launch mode is set to 'Single Tap'." -STARTLINE}
+  addUserKnob {6 hotboxExecuteOnClose l "Execute button without click" t "Execute the button underneath the cursor whenever the Hotbox is closed." -STARTLINE}
+  addUserKnob {4 hotboxRuleClassOrder l Order t "The order in which the buttons will be loaded." M {"Class - Rule" "Rule - Class"}}
+  addUserKnob {4 hotboxOpenManagerOptions l "Manager startup default" t "The section of the Manager that will be opened on startup.\n\n<b>Contextual</b> Open the 'Single' or 'Multiple' section, depending on selection.\n<b>All</b> Open the 'All' section.\n<b>Rules</b> Open the 'Rules' section.\n<b>Contextual/All</b> Contextual if the selection matches a button in the 'Single' or 'Multiple' section, otherwise the 'All' section will be opened.\n<b>Contextual/Rules</b> Contextual if the selection matches a button in the 'Single' or 'Multiple' section, otherwise the 'Rules' section will be opened." -STARTLINE M {Contextual All Rules Contextual/All Contextual/Rules}}
+  addUserKnob {26 hotboxAppearanceLabel l <b>Appearance</b>}
+  addUserKnob {6 hotboxMirroredLayout l Mirrored t "By default the contextual buttons will appear at the top of the hotbox and the non contextual buttons at the bottom." -STARTLINE}
+  addUserKnob {4 hotboxColorDropdown l "Color scheme" t "The color of the buttons when selected.\n\n<b>Maya</b> Autodesk Maya's muted blue.\n<b>Nuke</b> Nuke's bright orange.\n<b>Custom</b> which lets the user pick a color." M {Maya Nuke Custom}}
+  addUserKnob {40 hotboxColorCustom l "" t "The color of the buttons when selected, when the color dropdown is set to 'Custom'." -STARTLINE}
+  addUserKnob {6 hotboxColorCenter l "Colorize hotbox center" t "Color the center button of the hotbox depending on the current selection. When unticked the center button will be colored a lighter tone of grey." -STARTLINE}
+  hotboxColorCenter true
+  addUserKnob {6 hotboxAutoTextColor l "Auto adjust text color" t "Automatically adjust the color of a button's text to its background color in order to keep enough of a difference to remain readable." -STARTLINE}
+  hotboxAutoTextColor true
+  addUserKnob {3 hotboxFontSize l "Font size" t "The font size of the text that appears in the hotbox buttons, unless defined differently on a per-button level."}
+  hotboxFontSize 8
+  addUserKnob {3 hotboxScriptEditorFontSize l "Font size script editor" t "The font size of the text that appears in the hotbox manager's script editor." -STARTLINE}
+  hotboxScriptEditorFontSize 11
+  addUserKnob {26 hotboxItemsLabel l "<b>Items per Row</b>"}
+  addUserKnob {3 hotboxRowAmountSelection l "Selection specific" t "The maximum amount of buttons a row in the upper half of the Hotbox can contain. When the row's maximum capacity is reached a new row will be started. This new row's maximum capacity will be incremented by the step size."}
+  hotboxRowAmountSelection 3
+  addUserKnob {3 hotboxRowAmountAll l All t "The maximum amount of buttons a row in the lower half of the Hotbox can contain. When the row's maximum capacity is reached a new row will be started.This new row's maximum capacity will be incremented by the step size."}
+  hotboxRowAmountAll 3
+  addUserKnob {3 hotboxRowStepSize l "Step size" t "The amount a buttons every new row's maximum capacity will be increased by. Having a number unequal to zero will result in a triangular shape when having multiple rows of buttons."}
+  hotboxRowStepSize 1
+  addUserKnob {6 hotboxButtonSpawnMode l "Add new buttons to the sides" t "Add new buttons left and right of the row alternately, instead of to the right, in order to preserve muscle memory." +STARTLINE}
+  hotboxButtonSpawnMode true
+}

@@ -12,6 +12,7 @@ dist
 .svn
 mynk.cfg
 mynk.old
+stnk.cfg
 layout*.xml
 
 uistate*
@@ -22,3 +23,6 @@ folders.nk
 recent_files
 FileChooser_Favorites.pref
 ScriptEditorHistory.xml
+mynk/icons/tab_stats.dat
+tab_stats.dat
+preferences11.3.nk

@@ -9,32 +9,32 @@
 
 # logger relies on: constants
 import logging
-from logger import MyNkLogger
+from mynk.logger import MyNkLogger
 LOG = MyNkLogger().LOG
 
 # constants relies on: exceptions, LOG, internal
-import constants
+from mynk import constants
 
 # const relies on: constants, exceptions, internal
-from const import const, set_const
+from mynk.const import const, set_const
 
 # config relies on: constants
-from config import MyNkConfig
+from mynk.config import MyNkConfig
 config = MyNkConfig().config
 
 # gui relies on: constants, config
-from gui import MyNkGui
+from mynk.gui import MyNkGui
 gui = MyNkGui()
 
 # formats relies on: constants, config
-import formats
+from mynk import formats
 
 # tools relies on: constants, config
-from tools import MyNkTools
+from mynk.tools import MyNkTools
 tools = MyNkTools()
 
 # knobs relies on: constants, config
-import knobs
+import mynk.knobs
 
 
 __all__ = [ 'constants', 'const', 'set_const', 'LOG', 'config', 'gui', 'formats', 'tools', 'knobs', ]

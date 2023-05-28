@@ -35,7 +35,7 @@ if nuke.GUI:
     try:
         import nuke
     except:
-        print "Could not import: nuke"
+        print("Could not import: nuke")
     # try:
     #     import hiero_tools
     # except:

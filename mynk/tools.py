@@ -88,7 +88,7 @@ class MyNkTools(object):
               module = imp.load_source(module_name, file_path)
               setattr(dest, module_name, module)
               LOG.debug(u'Loaded Module [{0}]: {1}'.format(module_name, file_path))
-            except Exception, detail:
+            except Exception as detail:
               LOG.warning(u'Module [{0}] could not be loaded: {1}\n{2}'.format(module_name, file_path, detail))
           # if file is directory (org or package)
           elif os.path.isdir(file_path):
@@ -99,7 +99,7 @@ class MyNkTools(object):
                 package = __import__(package_name)
                 setattr(dest, package_name, package)
                 LOG.debug(debug_msg = u'Loaded Package [{0}]: {1}'.format(package_name, file_path))
-              except Exception, detail:
+              except Exception as detail:
                 LOG.warning(u'Package [{0}] could not be loaded from path: {1}\n{2}'.format(package_name, file_path, detail))
             else:
               dir_name = os.path.splitext(file_name)[0]

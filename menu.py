@@ -1,7 +1,7 @@
 import os
 import inspect
 import sys
-import __builtin__
+import builtins
 
 # Set a globally accessible attribute called DOTNUKE_PATH
 # this code should be used carefully with full knowledge of the implications
@@ -9,7 +9,7 @@ import __builtin__
 # mission-critical functionality and we're looking to extend the gui only
 # ie. We don't want renders failing all over the place!!!
 DOTNUKE_PATH = os.path.dirname(inspect.getfile(sys._getframe(0)))
-__builtin__.DOTNUKE_PATH = DOTNUKE_PATH
+builtins.DOTNUKE_PATH = DOTNUKE_PATH
 
 
 if nuke.GUI:
@@ -46,16 +46,16 @@ if nuke.GUI:
 
   #nuke.pluginAddPath('/Users/rob/.nuke/mygui', addToSysPath=False)
 
-  try:
-    import DeadlineNukeClient
-    menubar = nuke.menu("Nuke")
-    tbmenu = menubar.addMenu("&Thinkbox")
-    tbmenu.addCommand("Submit Nuke To Deadline", DeadlineNukeClient.main, "")
-    try:
-        if nuke.env[ 'studio' ]:
-            import DeadlineNukeFrameServerClient
-            tbmenu.addCommand("Reserve Frame Server Slaves", DeadlineNukeFrameServerClient.main, "")
-    except:
-        pass
-  except:
-    pass
+  # try:
+  #   import DeadlineNukeClient
+  #   menubar = nuke.menu("Nuke")
+  #   tbmenu = menubar.addMenu("&Thinkbox")
+  #   tbmenu.addCommand("Submit Nuke To Deadline", DeadlineNukeClient.main, "")
+  #   try:
+  #       if nuke.env[ 'studio' ]:
+  #           import DeadlineNukeFrameServerClient
+  #           tbmenu.addCommand("Reserve Frame Server Slaves", DeadlineNukeFrameServerClient.main, "")
+  #   except:
+  #       pass
+  # except:
+  #   pass
