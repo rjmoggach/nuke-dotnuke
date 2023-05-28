@@ -1,0 +1,68 @@
+#----------------------------------------------------------------------------------------------------------
+#
+# W_BACKDROPPER SETTINGS FILE
+#
+# CREATED ON SUNDAY 04 FEBRUARY 2018 (13:14) BY WGILSING
+#
+#----------------------------------------------------------------------------------------------------------
+
+addUserKnob {1 backdropperColor01 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor01 "blur glow"
+addUserKnob {40 backdropperColor01Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor01Color 0xcc804eff
+addUserKnob {1 backdropperColor02 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor02 key
+addUserKnob {40 backdropperColor02Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor02Color 0x1c8dff
+addUserKnob {1 backdropperColor03 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor03 "clean paint prep fix"
+addUserKnob {40 backdropperColor03Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor03Color 0xca9700ff
+addUserKnob {1 backdropperColor04 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor04 "roto mask "
+addUserKnob {40 backdropperColor04Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor04Color 0x970000ff
+addUserKnob {1 backdropperColor05 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor05 "noise grain "
+addUserKnob {40 backdropperColor05Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor05Color 0xffffffff
+addUserKnob {1 backdropperColor06 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor06 "grade color colour "
+addUserKnob {40 backdropperColor06Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor06Color 0x3bcdff
+addUserKnob {1 backdropperColor07 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor07 "edge extend "
+addUserKnob {40 backdropperColor07Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor07Color 0x903000ff
+addUserKnob {1 backdropperColor08 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor08 "transform scale rotat matchmove stabilize cornerpin track crop reformat resize smart vector stmap distortion"
+addUserKnob {40 backdropperColor08Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor08Color 0x337f7eff
+addUserKnob {1 backdropperColor09 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor09 matte
+addUserKnob {40 backdropperColor09Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor09Color 0xf7d00ff
+addUserKnob {1 backdropperColor10 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor10 "focus dof"
+addUserKnob {40 backdropperColor10Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor10Color 0x26324dff
+addUserKnob {1 backdropperColor11 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor11 "volumatric godray volume"
+addUserKnob {40 backdropperColor11Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor11Color 0x27283dff
+addUserKnob {1 backdropperColor12 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor12 "plate geo source"
+addUserKnob {40 backdropperColor12Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor12Color 0xbd396aff
+addUserKnob {1 backdropperColor13 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor13 "particle motes"
+addUserKnob {40 backdropperColor13Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor13Color 0x611bcdff
+addUserKnob {1 backdropperColor14 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor14 dust
+addUserKnob {40 backdropperColor14Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor14Color 0xe96900ff
+addUserKnob {1 backdropperColor15 l "" t "The labels that will have the given default color." +STARTLINE}
+backdropperColor15 blood
+addUserKnob {40 backdropperColor15Color l "" t "The default color for the given labels." -STARTLINE}
+backdropperColor15Color 0x640000ff

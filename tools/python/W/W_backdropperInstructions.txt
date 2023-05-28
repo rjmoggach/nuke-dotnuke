@@ -1,0 +1,14 @@
+#----------------------------------------------------------------------------------------------------------
+# Wouter Gilsing
+# woutergilsing@hotmail.com
+# February 2018
+# v1.0
+#----------------------------------------------------------------------------------------------------------
+
+Add the following to your menu.py:
+
+import W_backdropper
+
+By default no colors will be setup. For those of you that wish to install the presets as shown in the screenshot in the Nukepedia post, I included a file called ‘W_backdropperPresets.backdropper’. 
+
+In Nuke, open up the preference panel and navigate to the W_backdropper tab. Click the ‘Import/Export’ button at the bottom and browse to the file. Clicking ‘Import’ will then load the presets.

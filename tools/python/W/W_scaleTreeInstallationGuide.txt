@@ -1,0 +1,11 @@
+W_SCALETREE INSTALLATION GUIDE
+
+1 Copy ‘W_scaleTree.py' to a folder that's part of the nuke plugin path.
+  
+2 Append menu.py with the following code:
+
+import W_scaleTree
+nuke.menu('Nuke').addCommand('Edit/Node/W_scaleTree', 'W_scaleTree.scaleTreeFloatingPanel()', 'alt+`')
+
+3 Copy the folder called 'icons' to your .nuke folder. If you would rather place the icons elsewhere, make sure to update the path in the python script (line 28). 
+
