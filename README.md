@@ -2,7 +2,7 @@
 
 This is my personal startup environment for nuke.
 
-# THIS IS A WORK IN PROGRESS - NOT FOR PRODUCTION USE!!!!
+> These are GUI enhancements that have no impact on rendering. ie. only for my local user
 
 ## Usage
 
@@ -39,13 +39,4 @@ without a user knowing and having the option to opt-in.
 
 ## Installation
 
-Easy if you know how.
-
-
-## Future Goal
-
-Ideally this will evolve into a framework that allows for users to customize their workflow
-with an interface that is immediately accessible and does not require code editing. All 'features'
-should be able to be enabled/disabled programmatically instead of the current need to edit configuration
-by hand.
-
+Easy if you know how. I personally clone it and update it when I need to. 

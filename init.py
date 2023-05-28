@@ -8,17 +8,15 @@ sys.path.append(os.path.dirname(inspect.getfile(sys._getframe(0))))
 
 import platform
 
-#import mynk.settings
-#from mynk.loader.python import NukePythonTools
-
-
+# import mynk.settings
+# from mynk.loader.python import NukePythonTools
 
 
 # Python Tools
 # this class allows us to import python files into our namespace
 # and automagically import them and modules from
 # a given path in our settings object
-#nkTools = NukePythonTools(settings=mynk.settings, verbose=False)
+# nkTools = NukePythonTools(settings=mynk.settings, verbose=False)
 
 
 # Filename Fix
@@ -41,5 +39,5 @@ if nuke.GUI:
     # except:
     #     print "Could not import: hiero_tools"
     nuke_toolbar = nuke.menu("Nodes")
-    foot=nuke_toolbar.addMenu('Foooo', icon="mynk.png")
-    foot.addCommand('-','','')
+    foot = nuke_toolbar.addMenu("Foooo", icon="mynk.png")
+    foot.addCommand("-", "", "")

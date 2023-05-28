@@ -13,10 +13,84 @@ Preferences {
   GridHeight 48
   dot_node_scale 2
   defaultFlipbook "Flipbook Viewer"
+  addUserKnob {20 backdropperLabel l W_backdropper}
+  addUserKnob {1 backdropperVersion l version +HIDDEN}
+  backdropperVersion 1.2
+  addUserKnob {6 backdropperCaseSensitive l "Case sensitive" t "Only colorize nodes when the casing is matching." -STARTLINE}
+  addUserKnob {6 backdropperRecognizeColors l "Recognize color names" t "Change the color of the node whenever it's label contains a color name (eg. color the node red when the label contains the word \"red\")." -STARTLINE}
+  backdropperRecognizeColors true
+  addUserKnob {4 backdropperOrder l "" t "Order of importance regarding matching a label of a node to a color." -STARTLINE M {"Keywords - Color names" "Color names - Keywords"}}
+  addUserKnob {26 backdropperKeywordLabel l <b>Keywords</b>}
+  addUserKnob {1 backdropperColor01 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor01Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor01Color 0xccccccff
+  addUserKnob {1 backdropperColor02 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor02Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor02Color 0xccccccff
+  addUserKnob {1 backdropperColor03 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor03Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor03Color 0xccccccff
+  addUserKnob {1 backdropperColor04 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor04Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor04Color 0xccccccff
+  addUserKnob {1 backdropperColor05 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor05Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor05Color 0xccccccff
+  addUserKnob {1 backdropperColor06 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor06Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor06Color 0xccccccff
+  addUserKnob {1 backdropperColor07 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor07Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor07Color 0xccccccff
+  addUserKnob {1 backdropperColor08 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor08Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor08Color 0xccccccff
+  addUserKnob {1 backdropperColor09 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor09Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor09Color 0xccccccff
+  addUserKnob {1 backdropperColor10 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor10Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor10Color 0xccccccff
+  addUserKnob {1 backdropperColor11 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor11Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor11Color 0xccccccff
+  addUserKnob {1 backdropperColor12 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor12Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor12Color 0xccccccff
+  addUserKnob {1 backdropperColor13 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor13Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor13Color 0xccccccff
+  addUserKnob {1 backdropperColor14 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor14Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor14Color 0xccccccff
+  addUserKnob {1 backdropperColor15 l "" t "The labels that will have the given default color." +STARTLINE}
+  addUserKnob {40 backdropperColor15Color l "" t "The default color for the given labels." -STARTLINE}
+  backdropperColor15Color 0xccccccff
+  addUserKnob {26 backdropperBackdropLabel l <b>Backdrop</b>}
+  addUserKnob {3 backdropperBackdropFontSize l "Font size" t "Default font size for the label of Backdrop nodes."}
+  backdropperBackdropFontSize 42
+  addUserKnob {1 backdropperBackdropShortcut l "    Shortcut " t "Shortcut to create a Backdrop node." -STARTLINE}
+  backdropperBackdropShortcut Alt+b
+  addUserKnob {22 backdropperBackdropSetShortcut l set t "Apply shortcut." -STARTLINE T "W_backdropper.setMenuItem(\"Backdrop\")"}
+  addUserKnob {6 backdropperBackdropReplaceMenuItem l replace t "Replace original menu item." -STARTLINE}
+  addUserKnob {26 backdropperStickyNoteLabel l <b>StickyNote</b>}
+  addUserKnob {3 backdropperStickyNoteFontSize l "Font size" t "Default font size for the label of StickyNote nodes."}
+  backdropperStickyNoteFontSize 11
+  addUserKnob {1 backdropperStickyNoteShortcut l "    Shortcut " t "Shortcut to create a StickyNote node." -STARTLINE}
+  backdropperStickyNoteShortcut Alt+n
+  addUserKnob {22 backdropperStickyNoteSetShortcut l set t "Apply shortcut." -STARTLINE T "W_backdropper.setMenuItem(\"StickyNote\")"}
+  addUserKnob {6 backdropperStickyNoteReplaceMenuItem l replace t "Replace original menu item." -STARTLINE}
+  addUserKnob {26 backdropperPreferences l <b>Preferences</b>}
+  addUserKnob {3 backdropperSlotCount l Slots t "The amount of slots available to the user."}
+  backdropperSlotCount 15
+  addUserKnob {22 backdropperUpdateSlotCount l set t "Reset all the W_backdropper related knobs to their default values." -STARTLINE T W_backdropper.updateSlotCount()}
+  addUserKnob {22 backdropperImportExportPreferences l " import/export " t "Reset all the W_backdropper related knobs to their default values." -STARTLINE T W_backdropper.importExportPanel()}
+  addUserKnob {22 backdropperResetPreferences l clear t "Reset all the W_backdropper related knobs to their default values." -STARTLINE T W_backdropper.resetPreferences()}
+  addUserKnob {22 backdropperDeletePreferences l " uninstall " t "Delete all the W_backdropper related knobs from the Preferences Panel. After clicking this button the Preferences Panel should be closed by clicking the 'cancel' button." -STARTLINE T W_backdropper.deletePreferences(True)}
   addUserKnob {20 hotboxLabel l W_hotbox}
   addUserKnob {26 hotboxGeneralLabel l <b>General</b>}
   addUserKnob {1 hotboxVersion l version +HIDDEN}
-  hotboxVersion 1.8
+  hotboxVersion 1.9
   addUserKnob {2 hotboxLocation l "Hotbox location" t "The folder on disk the Hotbox uses to store the Hotbox buttons. Make sure this path links to the folder containing the 'All','Single' and 'Multiple' folders."}
   hotboxLocation /Users/rob/.nuke/W_hotbox
   addUserKnob {2 hotboxIconLocation l "Icons location" t "The folder on disk the where the Hotbox related icons are stored. Make sure this path links to the folder containing the PNG files."}
@@ -54,4 +128,5 @@ Preferences {
   hotboxRowStepSize 1
   addUserKnob {6 hotboxButtonSpawnMode l "Add new buttons to the sides" t "Add new buttons left and right of the row alternately, instead of to the right, in order to preserve muscle memory." +STARTLINE}
   hotboxButtonSpawnMode true
+  addUserKnob {20 hotboxDummyTab l Dummy +HIDDEN}
 }

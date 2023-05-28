@@ -13,49 +13,48 @@ builtins.DOTNUKE_PATH = DOTNUKE_PATH
 
 
 if nuke.GUI:
-  # MyNk personal workspace
-  # ----------------------------------
-  import mynk
+    # MyNk personal workspace
+    # ----------------------------------
+    import mynk
 
-  # Initialize the custom menu and toolbar
-  mynk.gui.init_gui()
+    # Initialize the custom menu and toolbar
+    mynk.gui.init_gui()
 
-  # Set the format defaults
-  mynk.formats.add_formats_from_config()
+    # Set the format defaults
+    mynk.formats.add_formats_from_config()
 
-  # Set the knob defaults from mynk config
-  mynk.knobs.set_knob_defaults_from_config()
+    # Set the knob defaults from mynk config
+    mynk.knobs.set_knob_defaults_from_config()
 
-  # Load the python tools from the mynk config'd path
-  # if you want to add paths, add them one line at a time as follows
-  # the following example is the default so not necessary to add
-  # as it will find it if no other paths have been added
-  #
-  # mynk.tools.add_path('~/.nuke/tools/python')
-  #
-  mynk.tools.add_python_tools_from_path_list()
+    # Load the python tools from the mynk config'd path
+    # if you want to add paths, add them one line at a time as follows
+    # the following example is the default so not necessary to add
+    # as it will find it if no other paths have been added
+    #
+    # mynk.tools.add_path('~/.nuke/tools/python')
+    #
+    mynk.tools.add_python_tools_from_path_list()
 
-  mynk.gui.add_toolbunch_to_menu('mynk.tools.python')
+    mynk.gui.add_toolbunch_to_menu("mynk.tools.python")
 
-  #nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-  #nuke_tb = nuke.menu("Nodes")
-  #mynk_mnu = nuke_tb.addMenu("FOOOBAR", "mynk.png")
-  #mynk_mnu.addCommand("Read", "nukescripts.create_read()", "r", icon="Read.png")
-  #mynk_mnu.addCommand("Write", "nuke.createNode(\"Write\")", "w", icon="Write.png")
+    # nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    # nuke_tb = nuke.menu("Nodes")
+    # mynk_mnu = nuke_tb.addMenu("FOOOBAR", "mynk.png")
+    # mynk_mnu.addCommand("Read", "nukescripts.create_read()", "r", icon="Read.png")
+    # mynk_mnu.addCommand("Write", "nuke.createNode(\"Write\")", "w", icon="Write.png")
 
+    # nuke.pluginAddPath('/Users/rob/.nuke/mygui', addToSysPath=False)
 
-  #nuke.pluginAddPath('/Users/rob/.nuke/mygui', addToSysPath=False)
-
-  # try:
-  #   import DeadlineNukeClient
-  #   menubar = nuke.menu("Nuke")
-  #   tbmenu = menubar.addMenu("&Thinkbox")
-  #   tbmenu.addCommand("Submit Nuke To Deadline", DeadlineNukeClient.main, "")
-  #   try:
-  #       if nuke.env[ 'studio' ]:
-  #           import DeadlineNukeFrameServerClient
-  #           tbmenu.addCommand("Reserve Frame Server Slaves", DeadlineNukeFrameServerClient.main, "")
-  #   except:
-  #       pass
-  # except:
-  #   pass
+    # try:
+    #   import DeadlineNukeClient
+    #   menubar = nuke.menu("Nuke")
+    #   tbmenu = menubar.addMenu("&Thinkbox")
+    #   tbmenu.addCommand("Submit Nuke To Deadline", DeadlineNukeClient.main, "")
+    #   try:
+    #       if nuke.env[ 'studio' ]:
+    #           import DeadlineNukeFrameServerClient
+    #           tbmenu.addCommand("Reserve Frame Server Slaves", DeadlineNukeFrameServerClient.main, "")
+    #   except:
+    #       pass
+    # except:
+    #   pass
