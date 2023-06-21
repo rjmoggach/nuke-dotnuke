@@ -8,6 +8,7 @@
 # 'Ctrl-Shift-s' "^+s"
 # 'Alt-Shift-s' "#+s"
 # 'Shift+F4' "+F4"
+import importlib
 
 __menus__ = {
     "Channel/Keep": {
@@ -39,5 +40,10 @@ __menus__ = {
         "cmd": "nuke.createNode('Shuffle', 'in2 rgba red red2 green green2 blue blue2 label \[knob\ this.in2\]')",
         "hotkey": "",
         "icon": "Shuffle.png",
+    },
+    "Reload MyNk": {
+        "cmd": "importlib.reload(mynk)",
+        "hotkey": "",
+        "icon": "Recycle.png",
     },
 }

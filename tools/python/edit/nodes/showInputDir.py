@@ -33,15 +33,6 @@ else:
     BROWSER_CMD = WINDOWS_CMD
 
 
-__menus__ = {
-    "Edit/Nodes/Show in {0}".format(BROWSER): {
-        "cmd": "showInputDir(nuke.selectedNodes())",
-        "hotkey": "#r",
-        "icon": "",
-    }
-}
-
-
 def showInputDir(nodes=[]):
     print("TEST")
     """

@@ -8,7 +8,7 @@ import nuke
 # 'Shift+F4' "+F4"
 
 __menus__ = {
-    "Edit/Nodes/Create/Create Write Dirs": {
+    "Create/Create Write Dirs": {
         "cmd": "createWriteDirs(nuke.selectedNodes())",
         "hotkey": "#+w",
         "icon": "",

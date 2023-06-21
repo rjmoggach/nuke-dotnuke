@@ -10,42 +10,62 @@
 
 # THIS DOESN'T REALLY DO ANYTHING RIGHT NOW - POSSIBLE FUTURE EXCEPTION HANDLING
 
+
 class MyNkError(OSError):
-  '''root for MyNkErrors, only used to except any MyNk error, never raised'''
-  pass
-  
+    """root for MyNkErrors, only used to except any MyNk error, never raised"""
+
+    pass
+
+
 class MyNkEnvError(MyNkError):
-  '''An error occurred while evaluating the mynk environment'''
-  pass
+    """An error occurred while evaluating the mynk environment"""
+
+    pass
+
 
 class MyNkKnobsError(MyNkError):
-  '''An error occurred while using the mynk knobs tools'''
-  pass
+    """An error occurred while using the mynk knobs tools"""
+
+    pass
+
 
 class MyNkConfigError(MyNkError):
-  '''An error occurred while using the mynk config tools'''
-  pass
+    """An error occurred while using the mynk config tools"""
+
+    pass
+
 
 class MyNkConfigMalformedError(MyNkConfigError):
-  '''A provided config file does not evaluate correctly'''
-  pass
+    """A provided config file does not evaluate correctly"""
+
+    pass
+
 
 class MyNkConfigDoesNotExistError(MyNkConfigError):
-  '''A provided config file does not exist'''
-  pass
+    """A provided config file does not exist"""
+
+    pass
+
 
 class MyNkConfigUnreadableError(MyNkConfigError):
-  '''A provided config file is not readable'''
-  pass
+    """A provided config file is not readable"""
+
+    pass
+
 
 class MyNkFormatsError(MyNkError):
-  '''An error occurred while using the mynk formats tools'''
-  pass
+    """An error occurred while using the mynk formats tools"""
+
+    pass
+
 
 class MyNkMalformedFormatError(MyNkFormatsError):
-  '''An error occurred while parsing a provided format string'''
-  pass
+    """An error occurred while parsing a provided format string"""
+
+    pass
+
 
 class MyNkCoerceError(MyNkError):
-  '''Everything is coerced to unicode'''
-  pass
+    """Everything is coerced to unicode"""
+
+    pass

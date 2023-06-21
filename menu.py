@@ -2,6 +2,13 @@ import os
 import inspect
 import sys
 import builtins
+import nuke
+
+if nuke.NUKE_VERSION_MAJOR < 11:
+    from PySide import QtCore, QtGui, QtGui as QtWidgets
+else:
+    from PySide2 import QtGui, QtCore, QtWidgets
+
 
 # Set a globally accessible attribute called DOTNUKE_PATH
 # this code should be used carefully with full knowledge of the implications
@@ -35,7 +42,7 @@ if nuke.GUI:
     #
     mynk.tools.add_python_tools_from_path_list()
 
-    mynk.gui.add_toolbunch_to_menu("mynk.tools.python")
+    mynk.gui.add_toolmunch_to_menu("mynk.tools.python")
 
     # nuke.tprint('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     # nuke_tb = nuke.menu("Nodes")
@@ -58,3 +65,23 @@ if nuke.GUI:
     #       pass
     # except:
     #   pass
+
+
+def guiMenuBar():
+    """
+    Prevent Nuke from using the native OS toolbar (like on macOS) and use the Nuke's default Qt toolbar instead.
+    This will allow the user to work properly in fullscreen mode on a Mac without losing/hiding the menubar.
+    Besides that the toolbar will behave like any other part of the interface.
+    """
+    # loop over all toplevel widgets and find all QMenuBars
+    for widget in QtWidgets.QApplication.instance().topLevelWidgets():
+        for child in widget.children():
+            if isinstance(child, QtWidgets.QMenuBar):
+                if child.isNativeMenuBar():
+                    child.setNativeMenuBar(False)
+                    return True
+
+    return False
+
+
+# guiMenuBar()

@@ -1,17 +1,10 @@
 Preferences {
  inputs 0
  name Preferences
-  AutoSaveName /Volumes/Thunder1/NukeTempDir/.autosave
-  localCachePath /Volumes/Thunder1/NukeTempDir/localize
-  localizationMode off
-  LocalizationPauseOnProjectLoad true
-  DiskCachePath /Volumes/Thunder1/NukeTempDir/
+  DiskCachePath /Volumes/Thunder1/NukeTempDir
   selectedGPUDeviceName "no GPU available"
   platformPathRemaps ""
-  reopenMovesPanel true
   colorPickerDefaultMode "floating color picker"
-  GridWidth 240
-  GridHeight 48
   dot_node_scale 2
   defaultFlipbook "Flipbook Viewer"
   addUserKnob {20 backdropperLabel l W_backdropper}
@@ -93,9 +86,9 @@ Preferences {
   addUserKnob {1 hotboxVersion l version +HIDDEN}
   hotboxVersion 1.9
   addUserKnob {2 hotboxLocation l "Hotbox location" t "The folder on disk the Hotbox uses to store the Hotbox buttons. Make sure this path links to the folder containing the 'All','Single' and 'Multiple' folders."}
-  hotboxLocation /Users/rob/.nuke/W_hotbox
+  hotboxLocation /Users/rob/.nuke/tools/W/W_hotbox
   addUserKnob {2 hotboxIconLocation l "Icons location" t "The folder on disk the where the Hotbox related icons are stored. Make sure this path links to the folder containing the PNG files."}
-  hotboxIconLocation /Users/rob/.nuke/icons/W_hotbox
+  hotboxIconLocation /Users/rob/.nuke/tools/W/icons/W_hotbox
   addUserKnob {22 hotboxOpenManager l "open hotbox manager" t "Open the Hotbox Manager." T W_hotboxManager.showHotboxManager() +STARTLINE}
   addUserKnob {22 hotboxOpenFolder l "open hotbox folder" t "Open the folder containing the files that store the Hotbox buttons. It's advised not to mess around in this folder unless you understand what you're doing." -STARTLINE T W_hotbox.revealInBrowser(True)}
   addUserKnob {22 hotboxDeletePreferences l "delete preferences" t "Delete all the Hotbox related knobs from the Preferences Panel. After clicking this button the Preferences Panel should be closed by clicking the 'cancel' button." -STARTLINE T W_hotbox.deletePreferences()}

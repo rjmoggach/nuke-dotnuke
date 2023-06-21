@@ -3,6 +3,8 @@ import os
 import threading
 import time
 import re
+import importlib
+
 
 import nuke
 
@@ -222,3 +224,7 @@ def paddingSplit(file_name):
         padding = m2.group(2).count("#")
         suffix = m2.group(3)
     return (padding, prefix, suffix)
+
+
+def reload_lib(mylib):
+    importlib.reload(mylib)
