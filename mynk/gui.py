@@ -59,18 +59,26 @@ class MyNkGui(object):
                         menu.addMenu(title)
 
     def add_toolmunch_to_menu(self, toolmunch_str):
-        for key, val in eval(toolmunch_str).toDict().items():
-            dottedpath = "{0}.{1}".format(toolmunch_str, key)
-            if inspect.ismodule(val):
-                self.add_tool_menus(dottedpath)
+        tool_dict = eval(toolmunch_str).toDict()
+        sorted_keys = sorted(tool_dict.keys())
+        for key in sorted_keys:
+            dotted_path = "{0}.{1}".format(toolmunch_str, key)
+            if inspect.ismodule(tool_dict[key]):
+                self.add_tool_menus(dotted_path)
             else:
-                self.add_toolmunch_to_menu(dottedpath)
+                self.add_toolmunch_to_menu(dotted_path)
+        # for key, val in eval(toolmunch_str).toDict().items():
+        #     dottedpath = "{0}.{1}".format(toolmunch_str, key)
+        #     if inspect.ismodule(val):
+        #         self.add_tool_menus(dottedpath)
+        #     else:
+        #         self.add_toolmunch_to_menu(dottedpath)
 
     def init_gui(self):
         nuke_menu = nuke.menu("Nuke")
         self.menu = nuke_menu.addMenu("MyNk", icon="mynk.png")
         nuke_toolbar = nuke.menu("Nodes")
-        self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", "mynkx.png")
+        self.nuke_toolbar = nuke_toolbar.addMenu("MyNk", icon="mynk.png")
 
     def add_entry_to_toolbar(self, entry):
         pass
@@ -85,7 +93,7 @@ class MyNkGui(object):
     def setFavorites(self):
         nuke.removeFavoriteDir("Nuke")
         nuke.addFavoriteDir("DotNuke", os.path.expanduser("~/.nuke"), 0)
-        nuke.addFavoriteDir("Jobs", "/", 0)
+        nuke.addFavoriteDir("Jobs", "/studio/jobs", 0)
         nuke.addFavoriteDir("Fonts", "/", nuke.FONT)
 
     def restoreWindowLayout(self, layout=1):

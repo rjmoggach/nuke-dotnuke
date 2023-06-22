@@ -78,7 +78,6 @@ class MyNkTools(object):
                 search_re = re.compile(".*\.py$", re.IGNORECASE)
                 files = os.listdir(path)
                 files.sort()
-                LOG.debug("List of files: \n{0}".format(files))
                 for file_name in files:
                     # ignore hidden files
                     if not file_name.startswith("."):
@@ -126,6 +125,8 @@ class MyNkTools(object):
                                 self.add_python_tools_from_path(
                                     new_path, eval("dest.{0}".format(dir_name))
                                 )
+                        else:
+                            pass
 
     def list_plugins(self):
         """
