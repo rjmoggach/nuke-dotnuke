@@ -1,16 +1,17 @@
+__menus__ = {}
+
 #----------------------------------------------------------------------------------------------------------
 # Wouter Gilsing
 # woutergilsing@hotmail.com
-version = '1.9'
-releaseDate = 'March 28 2021'
-__menus__ = {}
+version = '2.0'
+releaseDate = 'March 15 2025'
 
 #----------------------------------------------------------------------------------------------------------
 #LICENSE
 #----------------------------------------------------------------------------------------------------------
 
 '''
-Copyright (c) 2016-2021, Wouter Gilsing
+Copyright (c) 2016-2025, Wouter Gilsing
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -41,11 +42,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import nuke
 
-#Choose between PySide and PySide2 based on Nuke version
+#----------------------------------------------------------------------------------------------------------
+
+#PySide
 if nuke.NUKE_VERSION_MAJOR < 11:
+    PYSIDE = 1
     from PySide import QtCore, QtGui, QtGui as QtWidgets
-else:
+    QAction = QtGui.QAction
+    QRegularExpression = QtCore.QRegExp
+
+#PySide 2
+elif nuke.NUKE_VERSION_MAJOR < 16:
+    PYSIDE = 2
     from PySide2 import QtGui, QtCore, QtWidgets
+    QAction = QtWidgets.QAction
+    QRegularExpression = QtCore.QRegExp
+
+#PySide 6
+else:
+    PYSIDE = 6
+    from PySide6 import QtGui, QtCore, QtWidgets
+    QAction = QtGui.QAction
+    QRegularExpression = QtCore.QRegularExpression
+
+#----------------------------------------------------------------------------------------------------------
 
 import os
 import shutil
@@ -317,21 +337,12 @@ class HotboxManager(QtWidgets.QWidget):
 
         #script
         self.scriptEditorScript = ScriptEditorWidget()
-        self.scriptEditorScript.setMinimumHeight(200)
-        self.scriptEditorScript.setMinimumWidth(500)
-
         self.scriptEditorScript.save.connect(self.saveScriptEditor)
 
         ScriptEditorHighlighter(self.scriptEditorScript.document())
 
-        scriptEditorFont = QtGui.QFont()
-        scriptEditorFont.setFamily('Courier')
-        scriptEditorFont.setStyleHint(QtGui.QFont.Monospace)
-        scriptEditorFont.setFixedPitch(True)
-        scriptEditorFont.setPointSize(preferencesNode.knob('hotboxScriptEditorFontSize').value())
 
-        self.scriptEditorScript.setFont(scriptEditorFont)
-        self.scriptEditorScript.setTabStopWidth(4 * QtGui.QFontMetrics(scriptEditorFont).width(' '))
+
 
         #assemble
         self.scriptEditorLayout.addLayout(self.archiveButtonsLayout)
@@ -384,8 +395,13 @@ class HotboxManager(QtWidgets.QWidget):
         
         self.adjustSize()
 
-        screenRes = QtWidgets.QDesktopWidget().screenGeometry()
-        self.move(QtCore.QPoint(screenRes.width()//2,screenRes.height()//2)-QtCore.QPoint((self.width()//2),(self.height()//2)))
+        if PYSIDE > 2:
+            screen_resolution = QtWidgets.QApplication.screenAt(QtGui.QCursor.pos()).geometry()
+
+        else:
+            screen_resolution = QtWidgets.QDesktopWidget().screenGeometry()
+
+        self.move(QtCore.QPoint(screen_resolution.width()//2,screen_resolution.height()//2)-QtCore.QPoint((self.width()//2),(self.height()//2)))
 
         #--------------------------------------------------------------------------------------------------
         #set values
@@ -615,7 +631,7 @@ class HotboxManager(QtWidgets.QWidget):
 
         #if rule, check if item enabled
         if self.mode == 'Rules':
-            selectedClass += '_' * (1 - bool(selectedItem.checkState()))
+            selectedClass += '_' * (int(not selectedItem.checkState().value))
 
         return selectedClass
 
@@ -640,15 +656,21 @@ class HotboxManager(QtWidgets.QWidget):
         if itemsSelected:
 
             if not rule:
+
                 self.selectedItem = self.hotboxItemsTree.selectedItems[0]
                 self.loadedScript = self.selectedItem.path
 
             #if rule mode
             else:
+
                 item = self.classesList.currentItem()
-                itemState = 1 - bool(item.checkState())
+
+                if not item:
+                    return
+
+                itemState = int(not item.checkState().value)
                 self.loadedScript = '/'.join([self.path, item.text() + '_' * itemState, '_rule.py'])
-                
+            
 
             #if item (not submenu)
             if self.loadedScript.endswith('.py'):
@@ -674,7 +696,8 @@ class HotboxManager(QtWidgets.QWidget):
                 #rule
                 else:
 
-                    ignoreClasses = int(getAttributeFromFile(self.loadedScript, 'ignore classes'))
+
+                    ignoreClasses = bool(getAttributeFromFile(self.loadedScript, 'ignore classes'))
 
                     self.ignoreSave = True
                     self.rulesFlagCheckbox.setChecked(ignoreClasses)
@@ -1056,8 +1079,13 @@ class HotboxManager(QtWidgets.QWidget):
 
         importedArchiveLocation = tempfile.mkdtemp()
 
+        if nuke.NUKE_VERSION_MAJOR != 13:
+            with tarfile.open(archiveLocation) as archive:
+                archive.extractall(importedArchiveLocation)
+
         # nuke 13
-        if nuke.NUKE_VERSION_MAJOR > 12:
+        else:
+
             # nuke 13 crashes when extracting a tar file...
             # therefore we need to run it through a subprocess
 
@@ -1079,16 +1107,11 @@ class HotboxManager(QtWidgets.QWidget):
             process = subprocess.Popen('python {}'.format(module), shell = True)
             process.wait()
 
-        # nuke 12 and odler
-        else:
-
-            with tarfile.open(archiveLocation) as archive:
-                archive.extractall(importedArchiveLocation)
-
         #----------------------------------------------------------------------------------------------
 
         importedArchiveLocation += '/'
         importedArchiveLocation = importedArchiveLocation.replace('\\','/')
+
 
         #Make sure the current archive is healthy
         for i in ['Single','Multiple','All']:
@@ -1097,7 +1120,7 @@ class HotboxManager(QtWidgets.QWidget):
         #Copy stuff from extracted archive to current hotbox location
         importedArchive = self.indexArchive(importedArchiveLocation)
         currentArchive = self.indexArchive(self.rootLocation, dict = True)
-
+        print(currentArchive)
         newItems = []
         for i in importedArchive:
             if i[1] in currentArchive.keys():
@@ -1248,7 +1271,7 @@ class QListWidgetCustom(QtWidgets.QListWidget):
             item = self.item(index) 
             fileName = item.text()
 
-            checkState = int(item.checkState())
+            checkState = int(item.checkState().value)
 
             newRulePath, origRulePath = [self.hotboxManager.path + '/' + fileName + ('_' * index) for index in range(2)][::(checkState - 1)]
 
@@ -1738,6 +1761,9 @@ class ScriptEditorWidget(QtWidgets.QPlainTextEdit):
     def __init__(self):
         super(ScriptEditorWidget, self).__init__()
 
+        self.setMinimumHeight(200)
+        self.setMinimumWidth(500)
+
         self.savedText = ''
         self.savedName = ''
 
@@ -1752,6 +1778,27 @@ class ScriptEditorWidget(QtWidgets.QPlainTextEdit):
         self.cursorPositionChanged.connect(self.highlightCurrentLine)
 
         self.updateLineNumberAreaWidth()
+
+
+
+        # font
+        scriptEditorFont = QtGui.QFont()
+        scriptEditorFont.setFamily('Courier')
+        scriptEditorFont.setStyleHint(QtGui.QFont.Monospace)
+        scriptEditorFont.setFixedPitch(True)
+        scriptEditorFont.setPointSize(preferencesNode.knob('hotboxScriptEditorFontSize').value())
+
+        self.setFont(scriptEditorFont)
+
+        font_metrics = QtGui.QFontMetrics(scriptEditorFont)
+
+        # Set the tab stop width or distance based on the PySide version
+        if PYSIDE > 2:
+            font_width = font_metrics.horizontalAdvance(" ") 
+            self.setTabStopDistance(4 * font_width)
+        else:
+            font_width = font_metrics.width(" ")
+            self.setTabStopWidth(4 * font_width)
 
     #--------------------------------------------------------------------------------------------------
     #events
@@ -1847,7 +1894,14 @@ class ScriptEditorWidget(QtWidgets.QPlainTextEdit):
             maxNum //= 10
             digits += 1
 
-        space = 7 + self.fontMetrics().width('9') * digits
+        font_metrics = self.fontMetrics()
+        if PYSIDE > 2:
+            font_width = font_metrics.horizontalAdvance("9")
+        else:
+            font_width = font_metrics.width("9")
+
+
+        space = 7 + font_width * digits
         return space
 
     def updateLineNumberAreaWidth(self):
@@ -1897,7 +1951,13 @@ class ScriptEditorWidget(QtWidgets.QPlainTextEdit):
             painter.setPen(textColor)
 
             number = "%s " % str(blockNumber + 1)
-            painter.drawText(0, top, self.lineNumberArea.width(), self.fontMetrics().height(), QtCore.Qt.AlignRight, number)
+
+            if PYSIDE > 2:
+                font_height = self.fontMetrics().lineSpacing()
+            else:
+                font_height = self.fontMetrics().height()
+
+            painter.drawText(0, top, self.lineNumberArea.width(), font_height, QtCore.Qt.AlignRight, number)
 
             #Move to the next block
             block = block.next()
@@ -2227,8 +2287,8 @@ class ScriptEditorHighlighter(QtGui.QSyntaxHighlighter):
 
         self.numbers = ['True', 'False','None']
 
-        self.tri_single = (QtCore.QRegExp("'''"), 1, self.styles['comment'])
-        self.tri_double = (QtCore.QRegExp('"""'), 2, self.styles['comment'])
+        self.tri_single = (QRegularExpression("'''"), 1, self.styles['comment'])
+        self.tri_double = (QRegularExpression('"""'), 2, self.styles['comment'])
 
         self.placeholders = [
             'KNOBNAME','NODECLASS','NODENAME','VALUE','EXPRESSION'
@@ -2255,7 +2315,7 @@ class ScriptEditorHighlighter(QtGui.QSyntaxHighlighter):
             ]
 
         # Build a QRegExp for each pattern
-        self.rules = [(QtCore.QRegExp(pat), index, fmt) for (pat, index, fmt) in rules]
+        self.rules = [(QRegularExpression(pat), index, fmt) for (pat, index, fmt) in rules]
 
     def format(self,rgb, style=''):
         '''
@@ -2278,15 +2338,28 @@ class ScriptEditorHighlighter(QtGui.QSyntaxHighlighter):
         Apply syntax highlighting to the given block of text.
         '''
         # Do other syntax formatting
-        for expression, nth, format in self.rules:
-            index = expression.indexIn(text, 0)
+        for regex, nth, format in self.rules:
 
-            while index >= 0:
-                # We actually want the index of the nth match
-                index = expression.pos(nth)
-                length = len(expression.cap(nth))
-                self.setFormat(index, length, format)
-                index = expression.indexIn(text, index + length)
+            if PYSIDE > 2:
+                match = regex.match(text)
+                while match.hasMatch():
+                    # We actually want the index of the nth match
+                    index = match.capturedStart(nth)
+                    length = len(match.captured(nth))
+                    self.setFormat(index, length, format)
+
+                    # Move the index for the next match
+                    match = regex.match(text, match.capturedEnd())
+
+            else:
+                index = regex.indexIn(text, 0)
+                while index >= 0:
+                    # We actually want the index of the nth match
+                    index = regex.pos(nth)
+                    length = len(regex.cap(nth))
+                    self.setFormat(index, length, format)
+                    index = regex.indexIn(text, index + length)
+
 
         self.setCurrentBlockState(0)
 
@@ -2294,6 +2367,9 @@ class ScriptEditorHighlighter(QtGui.QSyntaxHighlighter):
         in_multiline = self.matchMultiline(text, *self.tri_single)
         if not in_multiline:
             in_multiline = self.matchMultiline(text, *self.tri_double)
+
+
+
 
     def matchMultiline(self, text, delimiter, in_state, style):
         '''
@@ -2303,34 +2379,94 @@ class ScriptEditorHighlighter(QtGui.QSyntaxHighlighter):
         if self.previousBlockState() == in_state:
             start = 0
             add = 0
+
         # Otherwise, look for the delimiter on this line
         else:
-            start = delimiter.indexIn(text)
-            # Move past this match
-            add = delimiter.matchedLength()
+
+            if PYSIDE > 2:
+
+                # Use QRegularExpression's match method instead of indexIn
+                match = delimiter.match(text)
+                if match.hasMatch():
+                    start = match.capturedStart()
+                    add = match.capturedLength()
+                else:
+                    start = -1
+                    add = 0
+
+            else:
+                start = delimiter.indexIn(text)
+                # Move past this match
+                add = delimiter.matchedLength()
 
         # As long as there's a delimiter match on this line...
         while start >= 0:
-            # Look for the ending delimiter
-            end = delimiter.indexIn(text, start + add)
-            # Ending delimiter on this line?
-            if end >= add:
-                length = end - start + add + delimiter.matchedLength()
-                self.setCurrentBlockState(0)
-            # No; multi-line string
+
+            if PYSIDE > 2:
+                # Look for the ending delimiter
+                match_end = delimiter.match(text, start + add)
+
+                # Ending delimiter on this line?
+                if match_end.hasMatch():
+                    end = match_end.capturedStart()
+                    length = end - start + add + match_end.capturedLength()
+                    self.setCurrentBlockState(0)
+
+                # No; multi-line string
+                else:
+                    self.setCurrentBlockState(in_state)
+                    length = len(text) - start + add
+    
+                # Apply formatting
+                self.setFormat(start, length, style)
+                
+                # Look for the next match
+                match = delimiter.match(text, start + length)
+                if match.hasMatch():
+                    start = match.capturedStart()
+                    add = match.capturedLength()
+                else:
+                    start = -1
+                    add = 0
+
             else:
-                self.setCurrentBlockState(in_state)
-                length = len(text) - start + add
-            # Apply formatting
-            self.setFormat(start, length, style)
-            # Look for the next match
-            start = delimiter.indexIn(text, start + length)
+                # Look for the ending delimiter
+                end = delimiter.indexIn(text, start + add)
+
+                # Ending delimiter on this line?
+                if end >= add:
+                    length = end - start + add + delimiter.matchedLength()
+                    self.setCurrentBlockState(0)
+
+                # No; multi-line string
+                else:
+                    self.setCurrentBlockState(in_state)
+                    length = len(text) - start + add
+
+                # Apply formatting
+                self.setFormat(start, length, style)
+
+                # Look for the next match
+                start = delimiter.indexIn(text, start + length)
+
+                # Use QRegularExpression's match method instead of indexIn
+                match = delimiter.match(text)
+                if match.hasMatch():
+                    start = match.capturedStart()
+                    add = match.capturedLength()
+                else:
+                    start = -1
+                    add = 0
+
+
+
 
         # Return True if still inside a multi-line string, False Otherwise
         if self.currentBlockState() == in_state:
             return True
         else:
             return False
+
 
 #------------------------------------------------------------------------------------------------------
 #Template Button
@@ -2415,7 +2551,7 @@ class ScriptEditorTemplateMenu(QtWidgets.QMenu):
         '''
 
         #create new QAction
-        action = QtWidgets.QAction(parent)
+        action = QAction(parent)
         action.setText(name)
 
         #bind function
@@ -2561,7 +2697,7 @@ class QTreeViewCustom(QtWidgets.QTreeView):
             classItemText = classItem.text()
 
             if self.parentClass.mode == 'Rules':
-                if not int(classItem.checkState()):
+                if not classItem.checkState().value:
                     classItemText += '_'
 
             self.scope = self.parentClass.path + '/' + classItemText + '/'
@@ -3232,15 +3368,21 @@ class RenameDialog(QtWidgets.QDialog):
         self.setLayout(masterLayout)
 
         #shortcuts
-        self.enterAction = QtWidgets.QAction(self)
+        self.enterAction = QAction(self)
         self.enterAction.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Return))
         self.enterAction.triggered.connect(self.renameButtonClicked)
         self.addAction(self.enterAction)
 
         #move to screen center
         self.adjustSize()
-        screenRes = QtWidgets.QDesktopWidget().screenGeometry()
-        self.move(QtCore.QPoint(screenRes.width() // 2, screenRes.height() // 2) - QtCore.QPoint((self.width() // 2), (self.height() // 2)))
+
+        if PYSIDE > 2:
+            screen_resolution = QtWidgets.QApplication.screenAt(QtGui.QCursor.pos()).geometry()
+
+        else:
+            screen_resolution = QtWidgets.QDesktopWidget().screenGeometry()
+
+        self.move(QtCore.QPoint(screen_resolution.width() // 2, screen_resolution.height() // 2) - QtCore.QPoint((self.width() // 2), (self.height() // 2)))
 
     def validateName(self):
         '''
@@ -3328,43 +3470,46 @@ class AboutDialog(QtWidgets.QFrame):
         aboutDate = QtWidgets.QLabel(releaseDate)
 
         #clickable links
-        aboutDownload = QWebLink('Nukepedia','http://www.nukepedia.com/python/ui/w_hotbox/')
-        aboutName = QtWidgets.QLabel('Wouter Gilsing')
-        aboutMail = QWebLink('woutergilsing@hotmail.com','mailto:woutergilsing@hotmail.com?body=')
-        aboutWeb = QWebLink('woutergilsing.com','http://www.woutergilsing.com')
+        aboutDownload = WebLabel('Nukepedia','http://www.nukepedia.com/python/ui/w_hotbox/')
+        aboutName = WebLabel('Wouter Gilsing','http://www.linkedin.com/in/woutergilsing')
+        aboutMail = WebLabel('woutergilsing@hotmail.com','mailto:woutergilsing@hotmail.com?body=')
 
         #set fonts
-        fontSize = 0.3
+        font_size = 0.3
         font = preferencesNode.knob('UIFont').value()
-        mediumFont = QtGui.QFont(font, fontSize * 40)
-        smallFont = QtGui.QFont(font, fontSize * 30)
+        mediumFont = QtGui.QFont(font, font_size * 40)
+        smallFont = QtGui.QFont(font, font_size * 30)
 
         aboutDownload.setFont(mediumFont)
 
-        for label in [aboutVersion,aboutDate,aboutName,aboutMail,aboutWeb]:
+        for label in [aboutVersion, aboutDate, aboutName, aboutMail]:
             label.setFont(smallFont)
 
         #assemble interface
-        masterLayout = QtWidgets.QVBoxLayout()
+        master_layout = QtWidgets.QVBoxLayout()
 
-        masterLayout.addWidget(aboutHotbox)
+        master_layout.addWidget(aboutHotbox)
 
-        masterLayout.addWidget(aboutVersion)
-        masterLayout.addWidget(aboutDate)
-        masterLayout.addSpacing(40)
-        masterLayout.addLayout(self.wrapInLayout(aboutDownload))
-        masterLayout.addSpacing(20)
+        master_layout.addWidget(aboutVersion)
+        master_layout.addWidget(aboutDate)
+        master_layout.addSpacing(40)
+        master_layout.addLayout(self.wrapInLayout(aboutDownload))
+        master_layout.addSpacing(20)
 
-        masterLayout.addWidget(aboutName)
-        masterLayout.addLayout(self.wrapInLayout(aboutMail,True))
-        masterLayout.addLayout(self.wrapInLayout(aboutWeb,True))
+        master_layout.addWidget(aboutName)
+        master_layout.addLayout(self.wrapInLayout(aboutMail,True))
 
-        self.setLayout(masterLayout)
+        self.setLayout(master_layout)
 
         #move to screen center
         self.adjustSize()
-        screenRes = QtWidgets.QDesktopWidget().screenGeometry()
-        self.move(QtCore.QPoint(screenRes.width() // 2,screenRes.height() // 2)-QtCore.QPoint((self.width() // 2),(self.height() // 2)))
+
+        if PYSIDE > 2:
+            screen_resolution = QtWidgets.QApplication.screenAt(QtGui.QCursor.pos()).geometry()
+        else:
+            screen_resolution = QtWidgets.QDesktopWidget().screenGeometry()
+
+        self.move(QtCore.QPoint(screen_resolution.width() // 2,screen_resolution.height() // 2)-QtCore.QPoint((self.width() // 2),(self.height() // 2)))
 
     def mouseReleaseEvent(self,event):
         '''
@@ -3388,45 +3533,19 @@ class AboutDialog(QtWidgets.QFrame):
         return layout
 
 
-class QWebLink(QtWidgets.QLabel):
+class WebLabel(QtWidgets.QLabel):
+
     def __init__(self, name, link):
-        super(QWebLink, self).__init__()
+        super(WebLabel, self).__init__()
 
         self.link = link
-        if self.link.startswith('mailto:'):
-            self.link = self.link + self.composeEmail()
+
         self.setToolTip(self.link)
 
         self.origText = name
         self.setText(self.origText)
 
         self.active = False
-
-    def composeEmail(self):
-
-        import platform
-        operatingSystem = platform.system()
-        
-        hotboxVersion = 'W_hotbox v%s (%s)'%(version, releaseDate)
-        nukeVersion = 'Nuke ' + nuke.NUKE_VERSION_STRING
-
-
-
-        if operatingSystem == 'Windows':
-            osName = 'Windows'
-            osVersion = platform.win32_ver()[0]
-
-        elif operatingSystem == 'Darwin':
-            osName = 'OSX'
-            osVersion = platform.mac_ver()[0]
-        else:
-            osName = platform.linux_distribution(full_distribution_name=0)[0]
-            osVersion = platform.linux_distribution(full_distribution_name=0)[1]
-
-        operatingSystem = ' '.join([osName,osVersion])
-
-        return '\n'.join(["I'm running:\n",hotboxVersion,nukeVersion,operatingSystem])
-
 
     def activate(self):
         self.setText('<font color = #f7931e>%s</font>'%self.origText)
