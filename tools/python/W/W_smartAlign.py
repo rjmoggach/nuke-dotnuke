@@ -7,22 +7,22 @@
 
 # menuBar.addCommand('Edit/Node/Align/Left', 'W_smartAlign.alignNodes("left")', 'Ctrl+Alt+left', shortcutContext=2)
 __menus__ = {
-    "Edit/Node/Align/Left": {
+    "Edit/Nodes/Align/Horizontal/Left": {
         "cmd": 'alignNodes("left")',
         "hotkey": "Ctrl+Alt+left",
         "icon": "",
     },
-    "Edit/Node/Align/Right": {
+    "Edit/Nodes/Align/Horizontal/Right": {
         "cmd": 'alignNodes("right")',
         "hotkey": "Ctrl+Alt+right",
         "icon": "",
     },
-    "Edit/Node/Align/Up": {
+    "Edit/Nodes/Align/Vertical/Top": {
         "cmd": 'alignNodes("up")',
         "hotkey": "Ctrl+Alt+up",
         "icon": "",
     },
-    "Edit/Node/Align/Down": {
+    "Edit/Nodes/Align/Vertical/Bottom": {
         "cmd": 'alignNodes("down")',
         "hotkey": "Ctrl+Alt+down",
         "icon": "",
