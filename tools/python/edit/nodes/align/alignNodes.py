@@ -23,23 +23,22 @@ __menus__ = {
 def alignNodes(nodes, direction="x"):
     """
     Align nodes either horizontally or vertically.
+    Aligns by node center to handle varying node sizes (e.g. Dot nodes).
     """
     if len(nodes) < 2:
         return
     if direction.lower() not in ("x", "y"):
         raise ValueError("direction argument must be x or y")
 
-    positions = [float(n[direction.lower() + "pos"].value()) for n in nodes]
-    avgPosition = sum(positions) / len(positions)
-    for n in nodes:
-        if direction == "x":
-            for n in nodes:
-                if not n.Class() == "Dot":
-                    n.setXpos(int(avgPosition))
-                else:
-                    n.setXpos(int(avgPosition) + 40)
-        else:
-            for n in nodes:
-                n.setYpos(int(avgPosition))
+    if direction == "x":
+        centers = [float(n.xpos() + n.screenWidth() / 2) for n in nodes]
+        avgCenter = sum(centers) / len(centers)
+        for n in nodes:
+            n.setXpos(int(avgCenter - n.screenWidth() / 2))
+    else:
+        centers = [float(n.ypos() + n.screenHeight() / 2) for n in nodes]
+        avgCenter = sum(centers) / len(centers)
+        for n in nodes:
+            n.setYpos(int(avgCenter - n.screenHeight() / 2))
 
-    return avgPosition
+    return avgCenter
