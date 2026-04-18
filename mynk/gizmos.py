@@ -6,6 +6,8 @@ import inspect
 import nuke
 import string
 
+from .listUtils import natural_sort_key
+
 try:
     basestring
 except NameError:
@@ -99,7 +101,7 @@ class GizmoPathManager(object):
             return
         self._visited.add(canonicalPath)
 
-        for subItem in sorted(os.listdir(canonicalPath)):
+        for subItem in sorted(os.listdir(canonicalPath), key=natural_sort_key):
             if self.exclude and self.exclude.search(subItem):
                 continue
             subPath = os.path.join(canonicalPath, subItem)
@@ -163,7 +165,7 @@ class GizmoPathManager(object):
                 niceName, "nuke.createNode('%s')" % filename, "%s.png" % name
             )
 
-        for folder, data in crawlData.get("dirs", {}).iteritems():
+        for folder, data in sorted(crawlData.get("dirs", {}).items(), key=lambda x: natural_sort_key(x[0])):
             import sys
 
             subMenu = toolbar.findItem(folder)

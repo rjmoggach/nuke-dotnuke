@@ -19,6 +19,7 @@ import nuke
 
 from . import constants as _c
 from . import LOG
+from .listUtils import natural_sort_key
 
 # checkout https://github.com/Infinidat/munch
 from .munch import Munch
@@ -28,6 +29,11 @@ MYNK_TOOLS_PATH = os.path.join(_c.DOTNUKE_PATH, "tools", "python")
 MYNK_MENU_INDEX = [
     "file",
     "edit",
+]
+
+MYNK_MENU_TAIL = [
+    "other",
+    "reload mynk",
 ]
 
 
@@ -77,7 +83,7 @@ class MyNkTools(object):
                 sys.path.append(path)
                 search_re = re.compile(".*\.py$", re.IGNORECASE)
                 files = os.listdir(path)
-                files.sort()
+                files.sort(key=natural_sort_key)
                 for file_name in files:
                     # ignore hidden files
                     if not file_name.startswith("."):

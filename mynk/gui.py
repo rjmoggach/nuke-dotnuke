@@ -24,6 +24,8 @@ import nuke
 from . import constants as _c
 from . import LOG
 from . import config
+from .listUtils import priority_sort_key
+from .tools import MYNK_MENU_INDEX, MYNK_MENU_TAIL
 
 import mynk
 
@@ -60,7 +62,7 @@ class MyNkGui(object):
 
     def add_toolmunch_to_menu(self, toolmunch_str):
         tool_dict = eval(toolmunch_str).toDict()
-        sorted_keys = sorted(tool_dict.keys())
+        sorted_keys = sorted(tool_dict.keys(), key=priority_sort_key(head=MYNK_MENU_INDEX, tail=MYNK_MENU_TAIL))
         for key in sorted_keys:
             dotted_path = "{0}.{1}".format(toolmunch_str, key)
             if inspect.ismodule(tool_dict[key]):
