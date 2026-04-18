@@ -9,6 +9,14 @@
 # 'Alt-Shift-s' "#+s"
 # 'Shift+F4' "+F4"
 import importlib
+import mynk
+
+
+def reload_mynk():
+    importlib.reload(mynk)
+    mynk.tools.add_python_tools_from_path_list()
+    mynk.gui.add_toolmunch_to_menu("mynk.tools.python")
+
 
 __menus__ = {
     "Channel/Keep": {
@@ -42,7 +50,7 @@ __menus__ = {
         "icon": "Shuffle.png",
     },
     "Reload MyNk": {
-        "cmd": "importlib.reload(mynk)",
+        "cmd": "reload_mynk()",
         "hotkey": "",
         "icon": "Recycle.png",
     },
