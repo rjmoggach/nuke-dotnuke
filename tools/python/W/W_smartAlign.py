@@ -9,12 +9,12 @@
 __menus__ = {
     "Edit/Nodes/Align/Horizontal/Left": {
         "cmd": 'alignNodes("left")',
-        "hotkey": "Ctrl+Alt+left",
+        "hotkey": "#+left",
         "icon": "",
     },
     "Edit/Nodes/Align/Horizontal/Right": {
         "cmd": 'alignNodes("right")',
-        "hotkey": "Ctrl+Alt+right",
+        "hotkey": "#+right",
         "icon": "",
     },
     "Edit/Nodes/Align/Vertical/Top": {

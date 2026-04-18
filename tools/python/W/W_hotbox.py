@@ -51,6 +51,7 @@ else:
     from PySide6 import QtGui, QtCore, QtWidgets
 
 import os
+import sys
 import subprocess
 import platform
 
@@ -58,6 +59,11 @@ import traceback
 import colorsys
 
 import W_hotboxManager
+
+# Register in __main__ so Nuke PyScript_Knob callbacks can find these modules
+import __main__
+__main__.__dict__['W_hotbox'] = sys.modules[__name__]
+__main__.__dict__['W_hotboxManager'] = sys.modules.get('W_hotboxManager', W_hotboxManager)
 
 preferencesNode = nuke.toNode('preferences')
 operatingSystem = platform.system()
@@ -1429,7 +1435,7 @@ addPreferences()
 hotboxLocationPathKnob = preferencesNode.knob('hotboxLocation')
 hotboxLocationPath = hotboxLocationPathKnob.value().replace('\\','/')
 
-if not hotboxLocationPath:
+if not hotboxLocationPath or not os.path.exists(hotboxLocationPath):
     hotboxLocationPath = homeFolder + '/W_hotbox'
     hotboxLocationPathKnob.setValue(hotboxLocationPath)
 

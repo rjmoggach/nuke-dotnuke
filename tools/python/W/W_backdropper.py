@@ -50,9 +50,14 @@ else:
 
 import os
 import re
+import sys
 
 from datetime import datetime as dt
 from getpass import getuser
+
+# Register this module in __main__ so Nuke PyScript_Knob callbacks can find it
+import __main__
+__main__.__dict__['W_backdropper'] = sys.modules[__name__]
 
 
 # ----------------------------------------------------------------------------------------------------------

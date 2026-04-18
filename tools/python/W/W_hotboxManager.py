@@ -2510,6 +2510,9 @@ class ScriptEditorTemplateMenu(QtWidgets.QMenu):
         if not parent:
             parent = self
 
+        if not os.path.isdir(folder):
+            return
+
         for path in [folder + '/' + file for file in os.listdir(folder) if file[0] not in ['_','.']]:
 
             name = getAttributeFromFile(path)
