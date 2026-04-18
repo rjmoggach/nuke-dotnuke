@@ -22,7 +22,7 @@ def cameraToCard():
     axisNode = nuke.createNode("Axis")
     cameraNode = nuke.createNode(
         "Camera2",
-        "translate {0 0 %s} pivot {%s %s %s}"(
+        "translate {0 0 %s} pivot {%s %s %s}" % (
             transGeoNodeDistance,
             transGeoNodeTranslate,
             transGeoNodeTranslate,
