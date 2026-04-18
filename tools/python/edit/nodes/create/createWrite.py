@@ -281,7 +281,7 @@ def make_write_from_read():
         elif type == "exr":
             wn["datatype"].setValue(selectedExrDatatype)
             wn["compression"].setValue(selectedExrCompressionType)
-            wn["dw_compression_level"].setValue(selectedExrCompression)
+            wn["dw_compression_level"].setValue(float(selectedExrCompression))
         #
 
         wn.setInput(0, tmpNode)

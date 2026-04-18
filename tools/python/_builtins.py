@@ -14,6 +14,7 @@ import mynk
 
 def reload_mynk():
     importlib.reload(mynk)
+    mynk.gui.init_gui()
     mynk.tools.add_python_tools_from_path_list()
     mynk.gui.add_toolmunch_to_menu("mynk.tools.python")
 
