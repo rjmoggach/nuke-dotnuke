@@ -33,7 +33,6 @@ MYNK_MENU_INDEX = [
 
 MYNK_MENU_TAIL = [
     "other",
-    "reload mynk",
 ]
 
 

@@ -56,6 +56,9 @@ def priority_sort_key(head=None, tail=None):
             return (0, head_map[s_lower], [])
         if s_lower in tail_map:
             return (2, tail_map[s_lower], [])
+        # push underscore-prefixed items after normal items
+        if s_lower.startswith('_'):
+            return (2, len(tail_map), natural_sort_key(s))
         return (1, 0, natural_sort_key(s))
 
     return _key
