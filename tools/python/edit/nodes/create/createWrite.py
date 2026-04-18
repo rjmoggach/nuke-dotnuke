@@ -281,10 +281,14 @@ def make_write_from_read():
         elif type == "exr":
             wn["datatype"].setValue(selectedExrDatatype)
             wn["compression"].setValue(selectedExrCompressionType)
-            wn["dw_compression_level"].setValue(float(selectedExrCompression))
+            wn.knob("dw_compression_level").setValue(float(selectedExrCompression), 0)
         #
 
         wn.setInput(0, tmpNode)
+        wn["first"].setValue(readNode["first"].value())
+        wn["last"].setValue(readNode["last"].value())
+        wn["use_limit"].setValue(True)
+        wn["create_directories"].setValue(True)
         selectThese.append(wn)
     #
 
