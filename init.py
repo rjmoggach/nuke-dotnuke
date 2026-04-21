@@ -4,7 +4,13 @@ import inspect
 
 # System Path
 # Add the current folder to the sys.path
-sys.path.append(os.path.dirname(inspect.getfile(sys._getframe(0))))
+DOTNUKE_PATH = os.path.dirname(inspect.getfile(sys._getframe(0)))
+sys.path.append(DOTNUKE_PATH)
+
+# Gizmo Path
+# Add tools/gizmos to the nuke plugin path so gizmos are found
+import nuke
+nuke.pluginAddPath(os.path.join(DOTNUKE_PATH, "tools", "gizmos"))
 
 import platform
 
