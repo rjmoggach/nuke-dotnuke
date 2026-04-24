@@ -18,6 +18,12 @@ import sys
 import logging
 import types
 
+try:
+    import colorlog
+    _HAVE_COLORLOG = True
+except ImportError:
+    _HAVE_COLORLOG = False
+
 
 class MyNkLogger(object):
     def __init__(self):
@@ -26,11 +32,29 @@ class MyNkLogger(object):
             if os.environ.get("MYNK_DEVEL", False) in ["1", "true", "True"]
             else logging.INFO
         )
-        exc_format = "%(asctime)s %(levelname)s: %(message)s"
-        format = "%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s"
-        date_format = "%Y-%m-%d %H:%M:%S"
-        self.exc_formatter = logging.Formatter(exc_format, date_format)
-        self.formatter = logging.Formatter(format, date_format)
+        if _HAVE_COLORLOG:
+            log_colors = {
+                "DEBUG": "cyan",
+                "INFO": "green",
+                "WARNING": "yellow",
+                "ERROR": "red",
+                "CRITICAL": "red,bg_white",
+            }
+            self.formatter = colorlog.ColoredFormatter(
+                "%(log_color)s%(levelname)s%(reset)s [%(name)s] %(filename)s %(message)s",
+                log_colors=log_colors,
+            )
+            self.exc_formatter = colorlog.ColoredFormatter(
+                "%(log_color)s%(levelname)s%(reset)s [%(name)s] %(message)s",
+                log_colors=log_colors,
+            )
+        else:
+            self.formatter = logging.Formatter(
+                "%(levelname)s [%(name)s] %(filename)s %(message)s"
+            )
+            self.exc_formatter = logging.Formatter(
+                "%(levelname)s [%(name)s] %(message)s"
+            )
         self.init_logger()
 
     def init_handler(self):
@@ -41,7 +65,17 @@ class MyNkLogger(object):
     def init_logger(self):
         self.init_handler()
         self.LOG = logging.getLogger("MyNk")
+        # Drop any stream handlers left over from a prior init (reload_mynk
+        # re-instantiates MyNkLogger, which would otherwise stack handlers
+        # and print every record N times).
+        for h in list(self.LOG.handlers):
+            if isinstance(h, logging.StreamHandler):
+                self.LOG.removeHandler(h)
         self.LOG.addHandler(self.stream_handler)
+        # Don't forward to the root logger — Nuke installs a root handler
+        # that re-emits records with its own format ("INFO:MyNk: ..."),
+        # producing a duplicate line for every log call.
+        self.LOG.propagate = False
         sys.excepthook = self.exception_handler
         self.LOG.flush = types.MethodType(self.__flush_log, self.LOG)
         self.LOG.remove_stream_handler = types.MethodType(
