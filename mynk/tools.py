@@ -29,10 +29,12 @@ MYNK_TOOLS_PATH = os.path.join(_c.DOTNUKE_PATH, "tools", "python")
 MYNK_MENU_INDEX = [
     "file",
     "edit",
+    "create",
 ]
 
 MYNK_MENU_TAIL = [
     "other",
+    "reload mynk",
 ]
 
 
