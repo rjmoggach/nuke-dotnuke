@@ -4,6 +4,7 @@ Preferences {
   localizationMode off
   LocalizationPauseOnProjectLoad true
   selectedGPUDeviceName "NVIDIA GeForce RTX 5090"
+  trialOFXPlugins true
   platformPathRemaps ""
   reopenMovesPanel true
   colorPickerDefaultMode "floating color picker"
@@ -90,7 +91,7 @@ Preferences {
   addUserKnob {1 hotboxVersion l version +HIDDEN}
   hotboxVersion 2.0
   addUserKnob {2 hotboxLocation l "Hotbox location" t "The folder on disk the Hotbox uses to store the Hotbox buttons. Make sure this path links to the folder containing the 'All','Single' and 'Multiple' folders."}
-  hotboxLocation /Users/rob/.nuke/W_hotbox
+  hotboxLocation C:/Users/rmoggach/.nuke/tools/W/W_hotbox
   addUserKnob {2 hotboxIconLocation l "Icons location" t "The folder on disk the where the Hotbox related icons are stored. Make sure this path links to the folder containing the PNG files."}
   hotboxIconLocation /Users/rob/.nuke/icons/W_hotbox
   addUserKnob {22 hotboxOpenManager l "open hotbox manager" t "Open the Hotbox Manager." T W_hotboxManager.showHotboxManager() +STARTLINE}
@@ -109,7 +110,6 @@ Preferences {
   addUserKnob {6 hotboxMirroredLayout l Mirrored t "By default the contextual buttons will appear at the top of the hotbox and the non contextual buttons at the bottom." -STARTLINE}
   addUserKnob {4 hotboxColorDropdown l "Color scheme" t "The color of the buttons when selected.\n\n<b>Maya</b> Autodesk Maya's muted blue.\n<b>Nuke</b> Nuke's bright orange.\n<b>Custom</b> which lets the user pick a color." M {Maya Nuke Custom}}
   addUserKnob {40 hotboxColorCustom l "" t "The color of the buttons when selected, when the color dropdown is set to 'Custom'." -STARTLINE}
-  hotboxColorCustom 0
   addUserKnob {6 hotboxColorCenter l "Colorize hotbox center" t "Color the center button of the hotbox depending on the current selection. When unticked the center button will be colored a lighter tone of grey." -STARTLINE}
   hotboxColorCenter true
   addUserKnob {6 hotboxAutoTextColor l "Auto adjust text color" t "Automatically adjust the color of a button's text to its background color in order to keep enough of a difference to remain readable." -STARTLINE}

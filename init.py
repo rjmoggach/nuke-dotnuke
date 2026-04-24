@@ -1,6 +1,6 @@
+import inspect
 import os
 import sys
-import inspect
 
 # System Path
 # Add the current folder to the sys.path
@@ -10,9 +10,9 @@ sys.path.append(DOTNUKE_PATH)
 # Gizmo Path
 # Add tools/gizmos to the nuke plugin path so gizmos are found
 import nuke
+
 nuke.pluginAddPath(os.path.join(DOTNUKE_PATH, "tools", "gizmos"))
 
-import platform
 
 # import mynk.settings
 # from mynk.loader.python import NukePythonTools
@@ -45,5 +45,6 @@ if nuke.GUI:
     # except:
     #     print "Could not import: hiero_tools"
     nuke_toolbar = nuke.menu("Nodes")
-    foot = nuke_toolbar.addMenu("Foooo", icon="mynk.png")
+    foot = nuke_toolbar.addMenu("Foooo", icon="mynk_classic.png")
+    foot.addCommand("-", "", "")
     foot.addCommand("-", "", "")
